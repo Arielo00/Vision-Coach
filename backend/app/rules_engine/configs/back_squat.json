@@ -1,0 +1,19 @@
+{
+  "exercise": "back_squat",
+  "required_equipment": ["barbell"],
+  "position_requires_equipment_detection": "La pose evalúa la sentadilla; la ubicación de la barra sobre la espalda queda pendiente del detector de equipo.",
+  "minimum_joint_confidence": 0.40,
+  "minimum_rep_confidence": 0.55,
+  "minimum_rep_frames": 12,
+  "sources": [
+    {"filename": "CFJ_Level1_Spanish_Latin_American.pdf", "pages": [115, 116, 117, 118, 119, 120, 121, 122, 123], "evidence_kind": "shared_squat_mechanics", "criteria": ["caderas por debajo de rodillas", "extensión completa de cadera y rodillas", "rodillas siguen la línea de los pies", "fallas y terapias comunes"]},
+    {"filename": "CFJ_Level2_Spanish_TrainingGuide.pdf", "pages": [4], "criteria": ["profundidad debajo del paralelo", "columna neutral", "peso en talones"]}
+  ],
+  "phases": {"ready_knee_min": 152, "descent_knee_max": 145, "finish_knee_min": 152},
+  "rules": {
+    "depth": {"maximum_bottom_knee_angle": 120, "tolerance_degrees": 3, "severity": "media", "description": "La sentadilla no alcanzó la profundidad configurada.", "correction": "Reduce la carga y usa una referencia de profundidad que puedas alcanzar manteniendo equilibrio y control."},
+    "lockout": {"minimum_knee_angle": 155, "tolerance_degrees": 3, "severity": "media", "description": "La repetición terminó sin una extensión estable de rodillas y cadera.", "correction": "Finaliza de pie y estabiliza la posición antes de comenzar la siguiente repetición."},
+    "torso_lean": {"maximum_degrees_from_vertical": 45, "severity": "media", "description": "El torso se inclinó más de lo configurado durante la sentadilla.", "correction": "Ajusta la carga, refuerza la presión del tronco y mantén la barra sobre la zona media del pie."},
+    "knee_asymmetry": {"maximum_degrees": 16, "severity": "leve", "description": "Los ángulos de las rodillas fueron asimétricos.", "correction": "Distribuye la presión entre ambos pies y practica repeticiones lentas antes de aumentar la carga."}
+  }
+}

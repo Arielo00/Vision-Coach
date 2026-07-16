@@ -1,0 +1,69 @@
+{
+  "exercise": "wall_ball_shot",
+  "label_es": "Wall ball shot",
+  "minimum_joint_confidence": 0.40,
+  "minimum_rep_confidence": 0.55,
+  "minimum_rep_frames": 12,
+  "sources": [
+    {
+      "filename": "CFJ_Level1_Spanish_Latin_American.pdf",
+      "criteria": ["mecánica de sentadilla, extensión y coordinación del lanzamiento"]
+    },
+    {
+      "filename": "HYROX Singles Rulebook 25/26",
+      "section": "9.8 Wall Balls, Fig. 010-011",
+      "evidence_kind": "competition_validity",
+      "criteria": ["inicio erguido", "cadera por debajo de rodillas", "lanzamiento con ambas manos al blanco", "impacto en zona válida", "reinicio erguido tras caída del balón"]
+    }
+  ],
+  "phases": {
+    "ready_knee_min": 152,
+    "descent_knee_max": 145,
+    "bottom_knee_max": 118,
+    "finish_knee_min": 152
+  },
+  "rules": {
+    "depth": {
+      "minimum_hip_below_knee_normalized": 0.0,
+      "tolerance_normalized": 0.02,
+      "severity": "media",
+      "description": "La cadera no descendió por debajo de la rodilla según el proxy 2D normalizado.",
+      "correction": "Reduce la carga y practica sentadillas con balón hasta alcanzar una profundidad estable sin perder el apoyo del pie."
+    },
+    "torso_lean": {
+      "maximum_degrees_from_vertical": 35,
+      "tolerance_degrees": 3,
+      "severity": "media",
+      "description": "El torso se inclinó demasiado durante la recepción o el ascenso.",
+      "correction": "Mantén el balón cerca del pecho, el pecho orientado al frente y usa una carga que permita subir con el torso más vertical."
+    },
+    "full_extension": {
+      "minimum_knee_angle": 155,
+      "tolerance_degrees": 3,
+      "severity": "media",
+      "description": "No se observó extensión suficiente de piernas antes de finalizar la repetición.",
+      "correction": "Termina la extensión de cadera y rodillas antes de iniciar la siguiente recepción."
+    },
+    "overhead_release": {
+      "severity": "media",
+      "description": "Las muñecas no superaron claramente la altura de los hombros durante el lanzamiento.",
+      "correction": "Coordina la extensión de piernas con el lanzamiento y termina con los brazos dirigidos hacia el objetivo."
+    },
+    "target_miss": {
+      "severity": "media",
+      "description": "El balón y el blanco fueron observables, pero no se detectó una intersección espacial 2D durante esta repetición.",
+      "correction": "Reduce la velocidad, fija visualmente la zona objetivo y practica lanzamientos consistentes antes de volver a encadenar repeticiones."
+    },
+    "knee_asymmetry": {
+      "maximum_degrees": 16,
+      "severity": "leve",
+      "description": "Se observó una diferencia relevante entre los ángulos de ambas rodillas.",
+      "correction": "Distribuye la presión entre ambos pies y practica repeticiones lentas frente a cámara antes de aumentar la carga."
+    }
+  },
+  "calibration": {
+    "status": "initial_reference_calibration",
+    "cases": ["wall_ball_correct_01"],
+    "note": "La tolerancia de 3 grados evita convertir variación 2D cercana al umbral en un falso positivo; requiere más atletas y vistas para estimar un intervalo robusto."
+  }
+}

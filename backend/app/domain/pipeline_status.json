@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "scope": "post_hoc_single_camera",
+  "blocks": [
+    {"id": "video_input", "label": "Video MP4/MOV", "status": "implemented", "evidence": ["POST /api/videos", "processing/media.py"], "limitation": "Sin tiempo real por decisión de alcance."},
+    {"id": "person_pose", "label": "RF-DETR persona + keypoints", "status": "implemented", "evidence": ["vision/pose_estimator.py", "pose.jsonl.gz"], "limitation": "RF-DETR Keypoint Preview; requiere CUDA y conserva incertidumbre cuando el modelo la entrega."},
+    {"id": "equipment_detection", "label": "RF-DETR equipo", "status": "implemented_bootstrap_awaiting_custom", "evidence": ["vision/equipment_detector.py", "model_registry/rfdetr/rf-detr-nano.pth", "model_registry/rfdetr/equipment/manifest.json"], "limitation": "RF-DETR Nano COCO sólo detecta sports_ball como bootstrap. Barra, rig, blanco y demás clases requieren el checkpoint custom fine-tuned."},
+    {"id": "tracking_smoothing", "label": "Tracking y suavizado", "status": "implemented_with_limitations", "evidence": ["vision/tracking.py", "rules_engine/common.py", "frontend/PosePlayer.tsx"], "limitation": "Tracking 2D del atleta principal y filtros mediana/EMA; todavía no hay Kalman que propague covarianza."},
+    {"id": "angles_trajectories", "label": "Ángulos y trayectorias", "status": "implemented_partial", "evidence": ["rules_engine/geometry.py", "rules_engine/common.py", "vision/equipment_tracking.py", "vision/equipment_trajectory.py"], "limitation": "Trayectorias 2D por track y contacto espacial temporal están implementados; la cobertura de implementos depende de entrenar el checkpoint custom."},
+    {"id": "exercise_classifier", "label": "Clasificador de ejercicio", "status": "partial", "evidence": ["exercise_classifier/heuristic.py", "selector manual"], "limitation": "Auto clasifica cuatro familias: wall ball, sentadilla genérica, dominada estricta y swing. El resto requiere selección manual."},
+    {"id": "phases_rules", "label": "Fases, repeticiones y reglas", "status": "partial_catalog", "evidence": ["rules_engine/dispatcher.py", "rules_engine/catalog_coverage.json"], "limitation": "14 motores ejecutables; kipping pull-up usa CFJ 237-244, 2 swings aún necesitan fuente técnica y todo motor requiere calibración experta."},
+    {"id": "reference_comparison", "label": "Comparación con referencia", "status": "implemented", "evidence": ["reference/library.py", "frontend/PosePlayer.tsx"], "limitation": "Alineación por fases y escala de torso en 2D; no es registro 3D."},
+    {"id": "rag", "label": "RAG híbrido", "status": "implemented", "evidence": ["rag/knowledge.py", "rag/vector_index.py", "rag/coaching.py", "tools/evaluate_hybrid_rag.py"], "limitation": "Gemini predeterminado con BGE/léxico como fallback visible; benchmark de 19 consultas sin holdout independiente."},
+    {"id": "llm_provider", "label": "Ollama / Google intercambiable", "status": "implemented", "evidence": ["llm_provider/providers.py", "GET /api/llm/models"], "limitation": "Google exige consentimiento por llamada; el video y los keypoints no se envían al coaching."},
+    {"id": "vector_store", "label": "Almacén vectorial", "status": "implemented_alternative", "evidence": ["rag/vector_index.py", "vectors.npy"], "limitation": "Se usa índice NumPy local exacto en lugar de Qdrant; para 909 chunks evita un servicio adicional sin perder recall por aproximación."},
+    {"id": "hard_examples", "label": "Hard examples", "status": "implemented_local_capture", "evidence": ["active_learning/service.py", "POST /api/jobs/{id}/feedback"], "limitation": "Guarda frame, pose, diagnóstico y corrección local; exportación/reentrenamiento sigue siendo offline y manual."}
+  ]
+}

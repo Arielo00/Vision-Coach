@@ -1,0 +1,24 @@
+{
+  "source": "hasaneyldrm/exercises-dataset",
+  "source_url": "https://github.com/hasaneyldrm/exercises-dataset",
+  "records": [
+    {"id": "0662", "canonical_exercise_id": "push_up", "discipline": "calisthenics", "standard_variant": "calisthenics_general", "relationship": "exact", "review_status": "secondary_reviewed", "review_note": "Demostración auxiliar; no sustituye el estándar técnico ni el motor biomecánico."},
+    {"id": "1759", "canonical_exercise_id": "pistol_squat", "discipline": "calisthenics", "standard_variant": "calisthenics_general", "relationship": "exact", "review_status": "secondary_reviewed"},
+    {"id": "3299", "canonical_exercise_id": "planche", "discipline": "calisthenics", "standard_variant": "full_planche", "relationship": "advanced_variant", "review_status": "secondary_reviewed"},
+    {"id": "0471", "canonical_exercise_id": "handstand_push_up", "discipline": "calisthenics", "standard_variant": "strict_general", "relationship": "exact", "review_status": "secondary_reviewed"},
+    {"id": "3419", "canonical_exercise_id": "l_sit", "discipline": "calisthenics", "standard_variant": "floor", "relationship": "equipment_variant", "review_status": "secondary_reviewed"},
+    {"id": "0631", "canonical_exercise_id": "bar_muscle_up", "discipline": "calisthenics", "standard_variant": "generic", "relationship": "supplemental", "review_status": "variant_candidate", "review_note": "La ejecución no se promoverá a estándar estricto sin fuente primaria y benchmark."},
+    {"id": "0558", "canonical_exercise_id": "bar_muscle_up", "discipline": "crossfit", "standard_variant": "kipping", "relationship": "advanced_variant", "review_status": "variant_candidate", "review_note": "Candidato a ejercicio disciplinar separado; requiere estándar primario CrossFit y reglas observables propias."},
+    {"id": "0677", "canonical_exercise_id": "ring_muscle_up", "discipline": "calisthenics", "standard_variant": "ring_dip_regression", "relationship": "regression", "review_status": "secondary_reviewed"},
+    {"id": "1160", "canonical_exercise_id": "burpee", "discipline": "crossfit", "standard_variant": "standard", "relationship": "supplemental", "review_status": "secondary_reviewed", "review_note": "El estándar disciplinar CrossFit prevalece sobre esta demostración genérica."},
+    {"id": "0680", "canonical_exercise_id": "rope_climb", "discipline": "crossfit", "standard_variant": "generic", "relationship": "supplemental", "review_status": "secondary_reviewed"},
+    {"id": "3888", "canonical_exercise_id": "dumbbell_snatch", "discipline": "crossfit", "standard_variant": "single_arm", "relationship": "exact", "review_status": "secondary_reviewed"},
+    {"id": "0069", "canonical_exercise_id": "overhead_squat", "discipline": "crossfit", "standard_variant": "barbell", "relationship": "exact", "review_status": "secondary_reviewed"},
+    {"id": "0549", "canonical_exercise_id": "kettlebell_swing_russian", "discipline": "crossfit", "standard_variant": "russian", "relationship": "supplemental", "review_status": "secondary_reviewed", "review_note": "La altura terminal debe validarse con el estándar disciplinar, no inferirse del GIF."},
+    {"id": "1700", "canonical_exercise_id": "push_press", "discipline": "crossfit", "standard_variant": "dumbbell", "relationship": "equipment_variant", "review_status": "secondary_reviewed"},
+    {"id": "0529", "canonical_exercise_id": "kettlebell_snatch", "discipline": "crossfit", "standard_variant": "double_kettlebell", "relationship": "equipment_variant", "review_status": "secondary_reviewed"},
+    {"id": "0534", "canonical_exercise_id": "goblet_squat", "discipline": "crossfit", "standard_variant": "kettlebell", "relationship": "exact", "review_status": "secondary_reviewed"},
+    {"id": "0551", "canonical_exercise_id": "turkish_get_up", "discipline": "crossfit", "standard_variant": "squat_style", "relationship": "partial_variant", "review_status": "variant_candidate", "review_note": "Variante de transición distinta; no se mezcla con el patrón canónico."},
+    {"id": "2133", "canonical_exercise_id": "farmers_carry", "discipline": "hyrox", "standard_variant": "dumbbells", "relationship": "equipment_variant", "review_status": "secondary_reviewed", "review_note": "Referencia de patrón de locomoción; reglas y estándar Hyrox permanecen separados."}
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "policy": {
+    "promotion_requirements": [
+      "fuente_primaria_de_la_disciplina",
+      "diferencias_observables_y_mensurables",
+      "fases_o_criterios_de_validez_distintos",
+      "benchmark_con_ejecuciones_correctas_y_errores_intencionales"
+    ],
+    "secondary_sources_modify_rules": false
+  },
+  "implemented_separations": [
+    {"concept": "wall_ball", "variants": ["wall_ball_shot", "hyrox_wall_balls"], "reason": "estándares disciplinares diferentes"},
+    {"concept": "burpee", "variants": ["burpee", "burpee_broad_jump"], "reason": "secuencia y desplazamiento diferentes"},
+    {"concept": "pull_up", "variants": ["strict_pull_up", "kipping_pull_up"], "reason": "cinemática y uso deliberado del kip diferentes"},
+    {"concept": "box_jump", "variants": ["box_jump", "box_jump_step_down"], "reason": "salida y recepción diferenciadas"},
+    {"concept": "kettlebell_swing", "variants": ["kettlebell_swing_russian", "kettlebell_swing_american"], "reason": "altura terminal y demanda de hombro diferentes"}
+  ],
+  "shared_exercises": [
+    {"exercise_id": "bar_muscle_up", "disciplines": ["crossfit", "calisthenics"], "standard_variant": "strict", "shared_information": true},
+    {"exercise_id": "ring_muscle_up", "disciplines": ["crossfit", "calisthenics"], "standard_variant": "strict", "shared_information": true},
+    {"exercise_id": "rowing", "disciplines": ["crossfit", "hyrox"], "standard_variant": "ergometer_technique", "shared_information": true}
+  ],
+  "candidates": [
+    {"proposed_id": "crossfit_kipping_bar_muscle_up", "current_parent": "bar_muscle_up", "discipline": "crossfit", "status": "pending_primary_source_and_benchmark"}
+  ]
+}

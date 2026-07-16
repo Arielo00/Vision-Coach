@@ -1,0 +1,16 @@
+{
+  "exercise": "parallel_dip",
+  "minimum_joint_confidence": 0.40,
+  "minimum_rep_confidence": 0.55,
+  "minimum_rep_frames": 7,
+  "sources": [
+    {"filename": "Manual de Calistenia SND_ 2023.pdf", "pages": [61], "criteria": ["no superar 90 grados entre tronco y hombros", "evitar hiperextensión", "codos próximos al tronco", "ligera inclinación anterior"]}
+  ],
+  "phases": {"support_elbow_min": 150, "descent_elbow_max": 135, "finish_elbow_min": 150},
+  "rules": {
+    "insufficient_depth": {"maximum_bottom_elbow_angle": 112, "tolerance_degrees": 4, "severity": "leve", "description": "El descenso no alcanzó el rango de flexión configurado.", "correction": "Usa asistencia con pies o banda y aumenta el recorrido gradualmente sin perder el control del hombro."},
+    "excessive_shoulder_depth": {"maximum_trunk_arm_angle": 100, "severity": "riesgo", "description": "El ángulo entre tronco y brazo superó el límite configurado en el fondo.", "correction": "Reduce la profundidad y detén el descenso cerca de 90° entre tronco y brazo; no fuerces el hombro bajo carga."},
+    "incomplete_support": {"minimum_elbow_angle": 153, "tolerance_degrees": 4, "severity": "media", "description": "El intento no regresó a un soporte estable con extensión suficiente de codos.", "correction": "Reduce repeticiones o usa asistencia para recuperar una posición alta estable."},
+    "elbow_asymmetry": {"maximum_degrees": 18, "severity": "leve", "description": "La flexión de los codos fue asimétrica.", "correction": "Usa una variante asistida y controla ambos brazos con el mismo tempo."}
+  }
+}

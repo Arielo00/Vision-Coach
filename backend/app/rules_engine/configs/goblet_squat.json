@@ -1,0 +1,18 @@
+{
+  "exercise": "goblet_squat",
+  "required_equipment": ["kettlebell_or_dumbbell"],
+  "position_requires_equipment_detection": "La pose evalúa el patrón de sentadilla; sostener la carga frente al pecho requiere detección del implemento.",
+  "minimum_joint_confidence": 0.40,
+  "minimum_rep_confidence": 0.55,
+  "minimum_rep_frames": 10,
+  "sources": [
+    {"filename": "CFJ_Level1_Spanish_Latin_American.pdf", "pages": [115, 116, 117, 118], "criteria": ["mecánica común de sentadilla: profundidad, extensión, alineación y tronco"]}
+  ],
+  "phases": {"ready_knee_min": 152, "descent_knee_max": 145, "finish_knee_min": 152},
+  "rules": {
+    "depth": {"maximum_bottom_knee_angle": 120, "tolerance_degrees": 3, "severity": "media", "description": "El goblet squat no alcanzó la profundidad configurada.", "correction": "Usa una carga menor y una pausa en el punto más bajo que puedas controlar."},
+    "lockout": {"minimum_knee_angle": 155, "tolerance_degrees": 3, "severity": "media", "description": "La repetición terminó sin extensión estable.", "correction": "Finaliza erguido antes de comenzar la siguiente repetición."},
+    "torso_lean": {"maximum_degrees_from_vertical": 35, "severity": "media", "description": "El torso excedió la inclinación configurada.", "correction": "Acerca la carga al pecho, reduce su peso y mantén el tronco firme."},
+    "knee_asymmetry": {"maximum_degrees": 16, "severity": "leve", "description": "La flexión de ambas rodillas fue asimétrica.", "correction": "Distribuye la presión por igual y controla ambas rodillas durante el descenso."}
+  }
+}

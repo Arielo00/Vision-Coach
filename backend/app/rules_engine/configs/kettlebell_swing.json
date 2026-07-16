@@ -1,0 +1,17 @@
+{
+  "evidence_status": "technical_source_needed",
+  "sources_reviewed": [
+    {"filename": "CFJ_Level1_Spanish_Latin_American.pdf", "pages": [82, 83], "evidence_kind": "catalog_mention_only", "usable_for_thresholds": false}
+  ],
+  "minimum_joint_confidence": 0.40,
+  "minimum_rep_confidence": 0.55,
+  "minimum_rep_frames": 8,
+  "phases": {"ready_hip_min": 158, "backswing_hip_max": 145, "finish_hip_min": 162},
+  "rules": {
+    "hip_extension": {"minimum_hip_angle": 164, "tolerance_degrees": 3, "severity": "media", "description": "La cadera no alcanzó una extensión suficiente al finalizar el swing.", "correction": "Reduce la carga y practica bisagras de cadera; termina alto sin inclinarte hacia atrás."},
+    "arm_bend": {"minimum_elbow_angle": 135, "tolerance_degrees": 4, "severity": "leve", "description": "Los codos se flexionaron demasiado y los brazos dominaron el movimiento.", "correction": "Mantén los brazos largos y deja que la extensión de cadera impulse la pesa."},
+    "squat_dominant": {"minimum_knee_angle": 92, "severity": "leve", "description": "El patrón se acercó más a una sentadilla que a una bisagra de cadera.", "correction": "Lleva la cadera hacia atrás y conserva las tibias más verticales durante el backswing."},
+    "russian_height": {"minimum_wrist_height": -0.18, "severity": "media", "description": "La pesa no alcanzó la altura configurada para el swing ruso.", "correction": "Usa una extensión de cadera más rápida sin elevar la pesa con los brazos."},
+    "american_height": {"minimum_wrist_height": 0.12, "severity": "media", "description": "Las manos no alcanzaron la altura configurada para el swing americano.", "correction": "Reduce la carga si es necesario y completa el recorrido manteniendo costillas y pelvis controladas."}
+  }
+}

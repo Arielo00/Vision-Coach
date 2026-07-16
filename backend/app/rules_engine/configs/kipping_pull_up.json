@@ -1,0 +1,80 @@
+{
+  "exercise": "kipping_pull_up",
+  "minimum_joint_confidence": 0.40,
+  "minimum_rep_confidence": 0.55,
+  "minimum_rep_frames": 8,
+  "maximum_rep_seconds": 5.0,
+  "maximum_missing_metric_frames": 5,
+  "sources": [
+    {
+      "filename": "CFJ_Level1_Spanish_Latin_American.pdf",
+      "pages": [237, 238, 239, 240, 241, 242, 243, 244],
+      "evidence_kind": "movement_execution_and_coaching",
+      "criteria": [
+        "inicio colgado con brazos extendidos",
+        "kip swing iniciado con los hombros",
+        "mentón por encima de la barra",
+        "empujarse de la barra para volver al arco",
+        "extensión completa antes de la siguiente repetición",
+        "evitar sobreextensión o balanceo exagerado",
+        "piernas juntas y rodillas derechas como corrección de tensión corporal"
+      ]
+    }
+  ],
+  "phases": {
+    "hang_elbow_min": 148,
+    "pull_elbow_max": 132,
+    "finish_elbow_min": 148
+  },
+  "rules": {
+    "incomplete_pull": {
+      "maximum_top_elbow_angle": 92,
+      "maximum_top_wrist_height_normalized": 0.12,
+      "tolerance_degrees": 5,
+      "severity": "media",
+      "description": "El tirón no alcanzó el rango configurado para la posición superior.",
+      "correction": "Regresa a dos kip swings y un pull-up; usa asistencia si no puedes completar el recorrido manteniendo el ritmo."
+    },
+    "incomplete_extension": {
+      "minimum_bottom_elbow_angle": 153,
+      "tolerance_degrees": 4,
+      "severity": "media",
+      "description": "La repetición no regresó a una extensión suficiente de brazos.",
+      "correction": "Empújate de la barra y recupera brazos extendidos antes de iniciar la siguiente repetición."
+    },
+    "leg_initiated_swing": {
+      "shoulder_delta_degrees": 8,
+      "hip_delta_degrees": 10,
+      "maximum_hip_lead_frames": 1,
+      "severity": "media",
+      "description": "El cambio de cadera precedió al movimiento de hombros; es compatible con iniciar el balanceo desde las piernas.",
+      "correction": "Vuelve al kip swing aislado e inicia el movimiento desde los hombros antes de acompañarlo con cadera y pies."
+    },
+    "missing_push_away": {
+      "minimum_horizontal_return": 0.05,
+      "severity": "media",
+      "description": "Tras el punto alto no aumentó suficientemente la separación horizontal cuerpo-muñecas; es compatible con caer verticalmente sin empujarse de la barra.",
+      "correction": "Haz una pausa arriba y practica empujarte de la barra para regresar al arco del kip swing."
+    },
+    "excessive_swing_core_loss": {
+      "maximum_hip_angle_range": 62,
+      "maximum_body_wrist_horizontal_range": 1.35,
+      "severity": "riesgo",
+      "description": "La amplitud de cadera o del cuerpo respecto a las muñecas fue excesiva, compatible con pérdida de tensión de la zona media.",
+      "correction": "Reduce la amplitud y practica kip swings tensos; mantén piernas juntas y rodillas derechas."
+    },
+    "bent_knees_loose_body": {
+      "minimum_knee_angle": 142,
+      "maximum_fraction": 0.30,
+      "severity": "leve",
+      "description": "Las rodillas permanecieron flexionadas durante una parte relevante del ciclo, compatible con una posición corporal poco tensa.",
+      "correction": "Practica kip swings con piernas juntas y rodillas derechas; usa una toalla entre los pies como referencia externa."
+    },
+    "elbow_asymmetry": {
+      "maximum_degrees": 18,
+      "severity": "leve",
+      "description": "La flexión de los codos fue asimétrica.",
+      "correction": "Reduce el volumen y practica tirones asistidos manteniendo ambos lados sincronizados."
+    }
+  }
+}

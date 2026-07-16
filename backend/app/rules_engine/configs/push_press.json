@@ -1,0 +1,19 @@
+{
+  "exercise": "push_press",
+  "minimum_joint_confidence": 0.42,
+  "minimum_rep_confidence": 0.58,
+  "minimum_rep_frames": 6,
+  "sources": [
+    {"filename": "CFJ_Level1_Spanish_Latin_American.pdf", "pages": [132, 133, 134, 135, 136], "evidence_kind": "movement_principles", "criteria": ["dip corto con torso vertical", "extensión completa de cadera y piernas", "los brazos empujan después de la extensión", "bloqueo overhead"]},
+    {"filename": "CFJ_Level1_Spanish_Latin_American.pdf", "pages": [202, 203, 204, 205], "evidence_kind": "coach_guide", "criteria": ["posición inicial", "ejecución", "progresión", "errores comunes y correcciones"]},
+    {"filename": "Dumbbell Push Jerk.mp4", "criteria": ["contraste visual local para diferenciar recepción con segunda flexión"]}
+  ],
+  "phases": {"ready_knee_min": 150, "dip_knee_max": 146, "drive_knee_min": 151, "lockout_elbow_min": 148},
+  "rules": {
+    "excessive_dip": {"minimum_dip_knee_angle": 118, "severity": "media", "description": "El dip fue más profundo que el rango corto configurado para el push press.", "correction": "Practica un dip vertical de pocos centímetros y cambia de dirección sin convertirlo en sentadilla."},
+    "dip_torso_lean": {"maximum_degrees_from_vertical": 20, "severity": "media", "description": "El torso perdió verticalidad durante el dip.", "correction": "Mantén el pecho erguido, presión uniforme en el pie y rodillas siguiendo la línea de los dedos."},
+    "early_press": {"minimum_wrist_rise": 0.05, "minimum_knee_angle_before_press": 148, "severity": "leve", "description": "Las manos comenzaron a elevarse antes de completar suficientemente el drive de piernas.", "correction": "Secuencia dip, drive completo y después empuja con los brazos; practica con una barra ligera."},
+    "knee_rebend": {"minimum_post_drive_knee_angle": 145, "severity": "media", "description": "Las rodillas volvieron a flexionarse bajo la carga, patrón más compatible con push jerk que con push press.", "correction": "Si el ejercicio indicado es push press, termina con piernas extendidas sin una segunda recepción."},
+    "lockout": {"minimum_elbow_angle": 150, "severity": "media", "description": "El bloqueo overhead terminó con flexión de codos.", "correction": "Reduce la carga y estabiliza brazos extendidos con la cabeza acomodada entre ellos."}
+  }
+}

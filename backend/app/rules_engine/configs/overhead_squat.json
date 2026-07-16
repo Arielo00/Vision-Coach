@@ -1,0 +1,21 @@
+{
+  "exercise": "overhead_squat",
+  "required_equipment": ["barbell_or_dumbbells"],
+  "position_requires_equipment_detection": "La pose verifica brazos sobre hombros, pero la estabilidad y trayectoria real de la carga requieren detectar el implemento.",
+  "minimum_joint_confidence": 0.40,
+  "minimum_rep_confidence": 0.58,
+  "minimum_rep_frames": 10,
+  "sources": [
+    {"filename": "CFJ_Level1_Spanish_Latin_American.pdf", "pages": [124, 125, 126, 127, 128, 129, 130, 131], "evidence_kind": "movement_principles", "criteria": ["barra en plano frontal", "brazos extendidos", "mecánica de sentadilla", "progresión"]},
+    {"filename": "CFJ_Level1_Spanish_Latin_American.pdf", "pages": [196, 197], "evidence_kind": "coach_guide", "criteria": ["posición inicial", "ejecución", "errores comunes y correcciones"]},
+    {"filename": "Dumbbell Overhead Squats.mp4", "criteria": ["referencia visual oficial disponible localmente"]}
+  ],
+  "phases": {"ready_knee_min": 152, "descent_knee_max": 145, "finish_knee_min": 152},
+  "rules": {
+    "depth": {"maximum_bottom_knee_angle": 120, "tolerance_degrees": 3, "severity": "media", "description": "La sentadilla overhead no alcanzó la profundidad configurada.", "correction": "Reduce la carga y trabaja primero el rango con una varilla o mancuerna ligera."},
+    "lockout": {"minimum_knee_angle": 155, "tolerance_degrees": 3, "severity": "media", "description": "La repetición terminó sin extensión estable.", "correction": "Finaliza erguido y estabiliza la carga antes de la siguiente repetición."},
+    "torso_lean": {"maximum_degrees_from_vertical": 30, "severity": "media", "description": "El torso se inclinó más del umbral provisional configurado durante la sentadilla overhead.", "correction": "Reduce la carga y mejora movilidad de hombros y tobillos manteniendo presión activa hacia arriba."},
+    "knee_asymmetry": {"maximum_degrees": 16, "severity": "leve", "description": "La flexión de ambas rodillas fue asimétrica.", "correction": "Controla ambas rodillas y distribuye uniformemente la presión entre los pies."},
+    "overhead_stability": {"minimum_frame_fraction": 0.80, "severity": "riesgo", "description": "Las muñecas dejaron de permanecer por encima de los hombros durante una parte relevante de la repetición.", "correction": "Detén la carga, reduce peso y recupera una posición overhead estable antes de continuar."}
+  }
+}

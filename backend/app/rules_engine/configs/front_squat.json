@@ -1,0 +1,19 @@
+{
+  "exercise": "front_squat",
+  "required_equipment": ["barbell"],
+  "position_requires_equipment_detection": "La pose evalúa el patrón de sentadilla; el rack frontal y la trayectoria de la barra aún requieren detección de equipo.",
+  "minimum_joint_confidence": 0.40,
+  "minimum_rep_confidence": 0.55,
+  "minimum_rep_frames": 10,
+  "sources": [
+    {"filename": "CFJ_Level1_Spanish_Latin_American.pdf", "pages": [115, 116, 117, 118, 123], "evidence_kind": "movement_principles", "criteria": ["mecánica común de sentadilla", "profundidad", "extensión de cadera", "posición de rack"]},
+    {"filename": "CFJ_Level1_Spanish_Latin_American.pdf", "pages": [194, 195], "evidence_kind": "coach_guide", "criteria": ["posición inicial", "ejecución", "errores comunes y correcciones"]}
+  ],
+  "phases": {"ready_knee_min": 152, "descent_knee_max": 145, "finish_knee_min": 152},
+  "rules": {
+    "depth": {"maximum_bottom_knee_angle": 120, "tolerance_degrees": 3, "severity": "media", "description": "La sentadilla frontal no alcanzó la profundidad configurada.", "correction": "Reduce la carga y usa pausas controladas conservando el rack frontal y el equilibrio sobre el mediopié."},
+    "lockout": {"minimum_knee_angle": 155, "tolerance_degrees": 3, "severity": "media", "description": "La repetición terminó sin extensión estable.", "correction": "Completa la extensión de cadera y rodillas antes de la siguiente repetición."},
+    "torso_lean": {"maximum_degrees_from_vertical": 32, "severity": "media", "description": "El torso se inclinó más del umbral provisional configurado para una sentadilla frontal.", "correction": "Reduce la carga, mantén los codos altos y refuerza la presión del tronco."},
+    "knee_asymmetry": {"maximum_degrees": 16, "severity": "leve", "description": "La flexión de ambas rodillas fue asimétrica.", "correction": "Controla el descenso y distribuye la presión uniformemente entre ambos pies."}
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "exercise": "strict_pull_up",
+  "minimum_joint_confidence": 0.40,
+  "minimum_rep_confidence": 0.55,
+  "minimum_rep_frames": 8,
+  "sources": [
+    {"filename": "Manual de Calistenia SND_ 2023.pdf", "pages": [51, 67], "criteria": ["movimiento controlado", "cuerpo y brazos extendidos al inicio", "cabeza por encima de la barra", "regreso controlado"]},
+    {"filename": "CFJ_Level1_Spanish_Latin_American.pdf", "pages": [237], "evidence_kind": "coach_guide", "criteria": ["inicio con brazos extendidos", "mentón por encima de barra", "extensión completa para la siguiente repetición", "dominar estricto antes de kipping"]}
+  ],
+  "phases": {"hang_elbow_min": 148, "pull_elbow_max": 132, "finish_elbow_min": 148},
+  "rules": {
+    "incomplete_pull": {"maximum_top_elbow_angle": 88, "tolerance_degrees": 4, "severity": "media", "description": "La flexión de codos no alcanzó el rango configurado para la parte alta.", "correction": "Usa una banda o una variante excéntrica que permita completar el recorrido sin perder control."},
+    "incomplete_extension": {"minimum_bottom_elbow_angle": 153, "tolerance_degrees": 4, "severity": "media", "description": "No se recuperó una extensión suficiente de codos al final.", "correction": "Vuelve a una posición de brazos extendidos y estable antes de iniciar la siguiente repetición."},
+    "kipping": {"maximum_hip_angle_range": 28, "severity": "media", "description": "Se observó una variación de cadera compatible con balanceo en una dominada marcada como estricta.", "correction": "Reduce repeticiones o usa asistencia; mantén costillas y pelvis controladas durante todo el recorrido."},
+    "elbow_asymmetry": {"maximum_degrees": 18, "severity": "leve", "description": "La flexión de ambos codos fue asimétrica.", "correction": "Practica tirones escapulares y repeticiones asistidas controlando ambos lados por igual."}
+  }
+}

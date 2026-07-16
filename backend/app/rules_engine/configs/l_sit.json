@@ -1,0 +1,15 @@
+{
+  "exercise": "l_sit",
+  "minimum_joint_confidence": 0.42,
+  "minimum_rep_confidence": 0.58,
+  "minimum_hold_frames": 8,
+  "sources": [
+    {"filename": "Manual de Calistenia SND_ 2023.pdf", "pages": [63, 65, 68], "criteria": ["brazos de apoyo", "piernas extendidas", "flexión de cadera cercana a 90 grados", "movimiento controlado"]}
+  ],
+  "phases": {"candidate_hip_max": 125, "candidate_elbow_min": 140},
+  "rules": {
+    "leg_height": {"maximum_mean_hip_angle": 105, "severity": "media", "description": "Las piernas permanecieron por debajo del rango horizontal configurado.", "correction": "Practica tuck L-sit y extensiones alternadas hasta sostener la cadera cerca de 90° con control."},
+    "bent_knees": {"minimum_knee_angle": 150, "severity": "leve", "description": "Las rodillas perdieron la extensión configurada durante el sostén.", "correction": "Regresa a una progresión tuck o de una pierna y prioriza extensión activa de rodilla."},
+    "soft_support": {"minimum_elbow_angle": 148, "severity": "media", "description": "Los codos se flexionaron durante el apoyo.", "correction": "Empuja activamente la superficie, deprime los hombros y usa una progresión más corta."}
+  }
+}

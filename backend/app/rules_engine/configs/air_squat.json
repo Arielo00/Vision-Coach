@@ -1,0 +1,18 @@
+{
+  "exercise": "air_squat",
+  "required_equipment": [],
+  "minimum_joint_confidence": 0.40,
+  "minimum_rep_confidence": 0.55,
+  "minimum_rep_frames": 10,
+  "sources": [
+    {"filename": "CFJ_Level1_Spanish_Latin_American.pdf", "pages": [115, 116, 117, 118, 119, 120, 121, 122, 123], "evidence_kind": "movement_principles", "criteria": ["profundidad", "extensión completa", "columna neutral", "rodillas alineadas con los pies", "fallas y terapias"]},
+    {"filename": "CFJ_Level1_Spanish_Latin_American.pdf", "pages": [189, 190, 191, 192, 193], "evidence_kind": "coach_guide", "criteria": ["posición inicial", "ejecución", "progresión", "errores comunes y correcciones"]}
+  ],
+  "phases": {"ready_knee_min": 152, "descent_knee_max": 145, "finish_knee_min": 152},
+  "rules": {
+    "depth": {"maximum_bottom_knee_angle": 120, "tolerance_degrees": 3, "severity": "media", "description": "La cadera no descendió por debajo del nivel funcional configurado.", "correction": "Practica una sentadilla a caja y reduce progresivamente la altura sin perder el apoyo del pie ni la posición del tronco."},
+    "lockout": {"minimum_knee_angle": 155, "tolerance_degrees": 3, "severity": "media", "description": "La repetición terminó sin extensión estable de cadera y rodillas.", "correction": "Finaliza erguido y estabiliza la extensión antes de iniciar la siguiente repetición."},
+    "torso_lean": {"maximum_degrees_from_vertical": 40, "severity": "media", "description": "El torso excedió la inclinación configurada para esta vista.", "correction": "Reduce la profundidad temporalmente y trabaja movilidad de tobillo y control del tronco."},
+    "knee_asymmetry": {"maximum_degrees": 16, "severity": "leve", "description": "La flexión de ambas rodillas fue asimétrica.", "correction": "Distribuye la presión entre ambos pies y usa repeticiones lentas frente a cámara."}
+  }
+}
