@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 6 52 52" fill="none">
+  <!-- G de nodos, trazada a partir del icono de app proporcionado por el autor. -->
+  <g stroke="#c6ff00" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M46 23 48 15 32 10 16 18 10 32 16 46 32 54 50 47 50 32 32 32" stroke-width="1.8"/>
+    <path d="M46 23 32 19 22 24 19 32 22 41 32 46 42 43 42 36 32 32" stroke-width="1.6"/>
+    <path d="M32 10V19M32 10 22 24M32 10 46 23M16 18 22 24M16 18 19 32M10 32 22 24M10 32H19M10 32 22 41M16 46 19 32M16 46 22 41M16 46H32M19 32 32 46M22 41 32 54M32 46V54M32 54 42 43M32 46 50 47M42 43 50 47M42 36 50 32M42 43 50 32" stroke-width="1.25" opacity="0.8"/>
+  </g>
+  <g fill="#c6ff00">
+    <circle cx="32" cy="10" r="2.1"/>
+    <circle cx="16" cy="18" r="2.1"/>
+    <circle cx="48" cy="15" r="2.1"/>
+    <circle cx="32" cy="19" r="2.1"/>
+    <circle cx="22" cy="24" r="2.1"/>
+    <circle cx="46" cy="23" r="2.1"/>
+    <circle cx="10" cy="32" r="2.1"/>
+    <circle cx="19" cy="32" r="2.1"/>
+    <circle cx="16" cy="46" r="2.1"/>
+    <circle cx="22" cy="41" r="2.1"/>
+    <circle cx="32" cy="46" r="2.1"/>
+    <circle cx="32" cy="54" r="2.1"/>
+    <circle cx="50" cy="47" r="2.1"/>
+    <circle cx="42" cy="43" r="2.1"/>
+    <circle cx="42" cy="36" r="2.1"/>
+    <circle cx="50" cy="32" r="2.1"/>
+    <circle cx="32" cy="32" r="2.1"/>
+  </g>
+</svg>

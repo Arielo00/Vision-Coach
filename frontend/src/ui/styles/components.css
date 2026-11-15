@@ -1,0 +1,382 @@
+/* ---------------------------------------------------------------------------
+   Primitivas compartidas.
+
+   Los tonos definen un `--tone` local que los componentes consumen. Así el
+   color de estado se elige en un solo lugar y ningún componente escribe
+   literales de color.
+   --------------------------------------------------------------------------- */
+
+.tone-evaluable { --tone: var(--state-evaluable); }
+.tone-reference { --tone: var(--state-reference); }
+.tone-uncertain { --tone: var(--state-uncertain); }
+.tone-technical { --tone: var(--state-technical); }
+.tone-risk { --tone: var(--state-risk); }
+.tone-unavailable { --tone: var(--state-unavailable); }
+.tone-active { --tone: var(--state-active); }
+.tone-neutral { --tone: var(--text-tertiary); }
+
+/* --- Insignia de estado ----------------------------------------------------
+   Texto + color + patrón. El texto conserva contraste completo siempre.       */
+
+.state-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding-block: 3px;
+  padding-inline: var(--space-2xs) var(--space-xs);
+  border: 1px solid color-mix(in srgb, var(--tone, var(--text-tertiary)) 45%, transparent);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--tone, var(--text-tertiary)) 10%, transparent);
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  white-space: nowrap;
+  /* Texto legible al 100%: la incertidumbre no se comunica atenuando. */
+  color: var(--text-primary);
+}
+
+.state-badge-mark {
+  inline-size: 8px;
+  block-size: 8px;
+  flex: 0 0 auto;
+  color: var(--tone, var(--text-tertiary));
+  background: currentColor;
+}
+
+.state-badge.pattern-dashed .state-badge-mark {
+  background: transparent;
+  border: 1.5px dashed currentColor;
+}
+
+.state-badge.pattern-dotted .state-badge-mark {
+  background: transparent;
+  border: 1.5px dotted currentColor;
+}
+
+.state-badge.pattern-hatched .state-badge-mark {
+  background: var(--hatch-dense);
+}
+
+/* --- Etiqueta de origen ----------------------------------------------------
+   Distingue de dónde viene cada afirmación en el riel de evidencia.           */
+
+.source-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+.source-tag-glyph {
+  inline-size: 14px;
+  block-size: 2px;
+  background: currentColor;
+}
+
+.source-regla { color: var(--state-evaluable); }
+.source-medicion { color: var(--state-reference); }
+.source-recuperacion { color: var(--text-tertiary); }
+.source-generado { color: var(--state-uncertain); }
+.source-sistema { color: var(--text-tertiary); }
+
+.source-generado .source-tag-glyph {
+  background: var(--hatch-uncertain);
+  block-size: 6px;
+}
+
+/* --- Par dato/valor --------------------------------------------------------- */
+
+.data-pair {
+  display: grid;
+  gap: 2px;
+  min-inline-size: 0;
+}
+
+.data-pair dt {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+}
+
+.data-pair dd {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--type-body);
+  overflow-wrap: anywhere;
+}
+
+.data-pair.tone-evaluable dd .data-pair-value { color: var(--state-evaluable); }
+.data-pair.tone-technical dd .data-pair-value { color: var(--state-technical); }
+.data-pair.tone-uncertain dd .data-pair-value { color: var(--state-uncertain); }
+.data-pair.tone-unavailable dd .data-pair-value { color: var(--text-tertiary); }
+
+.data-pair-note {
+  display: block;
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+}
+
+/* --- Medidor de confianza --------------------------------------------------- */
+
+.confidence-meter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 4.5rem auto;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.confidence-meter:not(.is-compact) {
+  grid-template-columns: minmax(0, 1fr) 5rem auto auto;
+}
+
+.confidence-meter-name {
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.confidence-meter-track {
+  position: relative;
+  display: block;
+  block-size: 6px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.confidence-meter-fill {
+  display: block;
+  block-size: 100%;
+  color: var(--tone, var(--text-tertiary));
+  background: currentColor;
+}
+
+.confidence-meter-track.pattern-dashed .confidence-meter-fill,
+.confidence-meter-track.pattern-hatched .confidence-meter-fill {
+  background-image: var(--hatch-dense);
+  background-color: color-mix(in srgb, currentColor 35%, transparent);
+}
+
+.confidence-meter-track.pattern-dotted .confidence-meter-fill {
+  background-image: var(--hatch-unavailable);
+  background-color: transparent;
+}
+
+.confidence-meter-value {
+  font-family: var(--font-data);
+  font-size: var(--type-caption);
+  color: var(--text-primary);
+  text-align: end;
+}
+
+.confidence-meter-level {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* --- Estado no evaluable ---------------------------------------------------- */
+
+.not-evaluable {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px dashed var(--state-uncertain);
+  background: color-mix(in srgb, var(--state-uncertain) 6%, transparent);
+}
+
+.not-evaluable-mark {
+  flex: 0 0 auto;
+  inline-size: 3px;
+  align-self: stretch;
+  color: var(--state-uncertain);
+  background: var(--hatch-uncertain);
+}
+
+.not-evaluable strong {
+  display: block;
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  letter-spacing: 0.02em;
+  color: var(--state-uncertain);
+}
+
+.not-evaluable p {
+  margin-block-start: var(--space-2xs);
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* --- Divulgación ------------------------------------------------------------ */
+
+.disclosure {
+  border: 1px solid var(--line);
+  background: var(--surface-1);
+}
+
+.disclosure > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  cursor: pointer;
+  list-style: none;
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+}
+
+.disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+.disclosure > summary:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: -2px;
+}
+
+/* Marcador propio: quitar el triángulo sin reemplazo deja el control sin
+   señal de que se puede abrir. */
+.disclosure-marker {
+  position: relative;
+  flex: 0 0 auto;
+  inline-size: 9px;
+  block-size: 9px;
+  border-inline-start: 1.5px solid var(--signal-lime);
+  border-block-end: 1.5px solid var(--signal-lime);
+  transform: rotate(-45deg);
+  transition: transform var(--duration-fast) var(--ease-instrument);
+}
+
+.disclosure[open] > summary .disclosure-marker {
+  transform: rotate(135deg);
+}
+
+.disclosure-summary-text {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.disclosure-summary-text strong {
+  display: block;
+  color: var(--text-primary);
+  font-size: var(--type-body);
+}
+
+.disclosure-summary-text small {
+  display: block;
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.disclosure-meta {
+  flex: 0 0 auto;
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+}
+
+.disclosure-body {
+  display: grid;
+  gap: var(--space-xs);
+  padding: 0 var(--space-sm) var(--space-sm);
+  border-block-start: 1px solid var(--line-hairline);
+  padding-block-start: var(--space-sm);
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.disclosure-body a {
+  color: var(--signal-lime);
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  justify-self: start;
+}
+
+/* --- Chip de disponibilidad -------------------------------------------------- */
+
+.availability-chip {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--space-2xs) var(--space-xs);
+  padding: var(--space-sm);
+  border: 1px solid var(--line);
+  background: var(--surface-1);
+}
+
+.availability-dot {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: var(--tone, var(--text-tertiary));
+}
+
+.availability-name {
+  font-size: var(--type-body);
+  color: var(--text-primary);
+}
+
+.availability-state {
+  grid-column: 2;
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--tone, var(--text-tertiary));
+}
+
+.availability-detail {
+  grid-column: 2;
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+}
+
+/* Grado de comprobación: no todos los indicadores se contactan de verdad. */
+.availability-probe {
+  grid-column: 2;
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+}
+
+/* --- Compatibilidad con alto contraste forzado -------------------------------
+   Los patrones y mezclas de color desaparecen; los bordes deben sobrevivir.    */
+@media (forced-colors: active) {
+  .state-badge,
+  .availability-chip,
+  .not-evaluable,
+  .disclosure {
+    border: 1px solid CanvasText;
+  }
+
+  .state-badge-mark,
+  .availability-dot,
+  .confidence-meter-fill {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+}

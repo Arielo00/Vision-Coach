@@ -1,0 +1,22 @@
+/* ---------------------------------------------------------------------------
+   Biomech Coach · hoja de entrada.
+
+   El orden de capas se declara primero, así que cada archivo puede escribirse
+   sin pelear por especificidad: una regla de `components` siempre gana a una de
+   `base`, sin importar cuántas clases tenga el selector.
+   --------------------------------------------------------------------------- */
+
+@layer tokens, reset, base, shell, views, components, utilities;
+
+@import "./ui/styles/tokens.css" layer(tokens);
+@import "./ui/styles/base.css" layer(base);
+@import "./ui/styles/shell.css" layer(shell);
+@import "./ui/styles/entry.css" layer(views);
+@import "./ui/styles/workbench.css" layer(views);
+@import "./ui/styles/rail.css" layer(views);
+@import "./ui/styles/library.css" layer(views);
+@import "./ui/styles/progress.css" layer(views);
+@import "./ui/styles/system.css" layer(views);
+@import "./ui/styles/components.css" layer(components);
+@import "./ui/styles/picker.css" layer(components);
+@import "./ui/styles/trazo.css" layer(components);

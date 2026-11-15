@@ -1,0 +1,724 @@
+/* ---------------------------------------------------------------------------
+   04 · Riel de diagnóstico y coaching.
+
+   Las secciones A–E se leen como una escalera de evidencia. El paso se marca
+   con una letra en el margen, que codifica orden real de autoridad: la regla
+   determinista antes que la medición, y ambas antes que el texto generado.
+   --------------------------------------------------------------------------- */
+
+.diagnostic-rail {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.rail-section {
+  display: grid;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px solid var(--line);
+  background: var(--surface-1);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 20rem;
+}
+
+.rail-section-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--space-xs) var(--space-sm);
+  padding-block-end: var(--space-xs);
+  border-block-end: 1px solid var(--line);
+}
+
+.rail-step {
+  display: grid;
+  place-items: center;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  font-weight: 700;
+  color: var(--signal-lime);
+}
+
+.rail-section-head h3 {
+  font-size: var(--type-h4);
+}
+
+/* --- A · Resultado de reglas -------------------------------------------------- */
+
+.rules-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+  gap: 1px;
+  background: var(--line-hairline);
+  border: 1px solid var(--line-hairline);
+}
+
+.rules-summary .data-pair {
+  padding: var(--space-xs);
+  background: var(--surface-2);
+}
+
+.rules-summary .data-pair dd {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  font-weight: 700;
+}
+
+.rail-exercise-override {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.classification-block {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  border: 1px solid var(--line-hairline);
+  background: var(--surface-2);
+}
+
+.classification-reason {
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Advertencia cuando la clasificación no alcanza confianza suficiente. */
+.classification-caveat {
+  padding: var(--space-2xs) var(--space-xs);
+  border-inline-start: 2px solid var(--state-uncertain);
+  font-size: var(--type-caption);
+  color: var(--text-primary);
+  line-height: 1.55;
+}
+
+/* Discrepancia entre el agregado del backend y el conteo por repetición. */
+.aggregate-note {
+  padding: var(--space-xs) var(--space-sm);
+  border-inline-start: 2px solid var(--line-strong);
+  background: var(--surface-2);
+  font-size: var(--type-micro);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.aggregate-note strong {
+  color: var(--text-primary);
+}
+
+.classification-candidates {
+  display: grid;
+  gap: var(--space-3xs);
+}
+
+.classification-candidates li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-sm);
+  padding-block: var(--space-3xs);
+  border-block-end: 1px solid var(--line-hairline);
+  font-size: var(--type-caption);
+}
+
+.classification-candidates strong {
+  font-family: var(--font-data);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: var(--space-xs);
+}
+
+.feature-grid > div {
+  display: grid;
+  gap: 1px;
+}
+
+.feature-grid dt {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: var(--text-tertiary);
+}
+
+.feature-grid dd {
+  margin: 0;
+  font-family: var(--font-data);
+  font-size: var(--type-caption);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+/* Límites de evaluación: es el canal que explica qué NO se pudo medir. */
+.evaluation-limits {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  border: 1px dashed var(--state-uncertain);
+  background: color-mix(in srgb, var(--state-uncertain) 5%, transparent);
+}
+
+.evaluation-limits .tech-label {
+  color: var(--state-uncertain);
+}
+
+.evaluation-limits ul {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.evaluation-limits li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-xs);
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.limit-mark {
+  inline-size: 3px;
+  block-size: 100%;
+  min-block-size: 1rem;
+  color: var(--state-uncertain);
+  background: var(--hatch-uncertain);
+}
+
+/* --- B · Evidencia visual ------------------------------------------------------ */
+
+.capability-boundary {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  border: 1px solid color-mix(in srgb, var(--tone) 40%, transparent);
+  background: color-mix(in srgb, var(--tone) 6%, transparent);
+}
+
+.capability-boundary-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.capability-boundary p {
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.equipment-evidence {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.equipment-message {
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.trajectory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: var(--space-xs);
+}
+
+.contact-events {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.contact-events ul {
+  display: grid;
+  gap: 1px;
+}
+
+.contact-events button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-sm);
+  inline-size: 100%;
+  min-block-size: 2.5rem;
+  padding: var(--space-2xs) var(--space-xs);
+  border: 0;
+  border-inline-start: 2px solid var(--state-reference);
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-align: start;
+  font-size: var(--type-caption);
+}
+
+.contact-events button:hover {
+  color: var(--text-primary);
+  background: var(--surface-3);
+}
+
+.contact-frame,
+.contact-confidence {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-tertiary);
+}
+
+.contact-note {
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  line-height: 1.55;
+}
+
+/* --- C · Hallazgos --------------------------------------------------------------
+   Ningún hallazgo se oculta por maquetación; el rojo se reserva al riesgo.      */
+
+.findings-list {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.finding-card {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--tone);
+  background: var(--surface-2);
+}
+
+.finding-card header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.finding-rep,
+.finding-phase {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+}
+
+.finding-phase abbr {
+  color: var(--state-uncertain);
+  text-decoration: none;
+  cursor: help;
+}
+
+.finding-card h4 {
+  font-size: var(--type-body-lg);
+  line-height: 1.4;
+}
+
+.finding-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: var(--space-xs);
+  padding-block: var(--space-xs);
+  border-block: 1px solid var(--line-hairline);
+}
+
+.finding-correction {
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.finding-seek {
+  justify-self: start;
+  min-block-size: 2.25rem;
+  padding-inline: var(--space-sm);
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.finding-seek:hover {
+  border-color: var(--signal-lime);
+  color: var(--signal-lime);
+}
+
+.findings-expand {
+  justify-self: start;
+  min-block-size: 2.75rem;
+  padding-inline: var(--space-md);
+  border: 1px solid var(--signal-lime);
+  background: transparent;
+  color: var(--signal-lime);
+  cursor: pointer;
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.findings-expand.is-collapse {
+  border-color: var(--line-strong);
+  color: var(--text-tertiary);
+}
+
+.findings-scope-note {
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+
+.repetition-metric-list {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.repetition-metric-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  padding-block-end: var(--space-2xs);
+  border-block-end: 1px solid var(--line-hairline);
+}
+
+.repetition-metric-head strong {
+  font-family: var(--font-data);
+  font-size: var(--type-caption);
+  color: var(--text-primary);
+}
+
+.repetition-metric-head > span {
+  margin-inline-start: auto;
+  font-family: var(--font-data);
+  font-size: var(--type-caption);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: var(--space-xs);
+  margin-block-start: var(--space-xs);
+}
+
+.metric-empty,
+.rule-no-correction {
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+}
+
+.repetition-warning {
+  margin-block-start: var(--space-2xs);
+  padding: var(--space-2xs) var(--space-xs);
+  border-inline-start: 2px solid var(--state-uncertain);
+  font-size: var(--type-micro);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* --- D · Fuentes recuperadas ------------------------------------------------- */
+
+.retrieval-state {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  border: 1px solid var(--line-hairline);
+  background: var(--surface-2);
+}
+
+.retrieval-state dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: var(--space-xs);
+}
+
+.retrieval-message {
+  font-size: var(--type-micro);
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.knowledge-list {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.knowledge-list article {
+  display: grid;
+  gap: var(--space-2xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-inline-start: 2px solid var(--line-strong);
+  background: var(--surface-2);
+}
+
+.knowledge-list header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.knowledge-list strong {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.knowledge-list header span {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+.knowledge-list p {
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --- E · Coaching ------------------------------------------------------------ */
+
+.coaching-section {
+  border-color: color-mix(in srgb, var(--state-uncertain) 30%, var(--line));
+}
+
+.coaching-boundary {
+  padding: var(--space-sm);
+  border-inline-start: 2px solid var(--state-uncertain);
+  background: color-mix(in srgb, var(--state-uncertain) 6%, transparent);
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.coaching-boundary strong {
+  color: var(--text-primary);
+}
+
+.coaching-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--space-sm);
+}
+
+.model-selector {
+  display: grid;
+  gap: var(--space-2xs);
+  min-inline-size: 0;
+}
+
+.coaching-generate {
+  min-block-size: 2.75rem;
+  padding-inline: var(--space-md);
+  border: 1px solid var(--signal-lime);
+  background: transparent;
+  color: var(--signal-lime);
+  cursor: pointer;
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.coaching-generate:disabled {
+  border-color: var(--line);
+  color: var(--text-tertiary);
+  cursor: not-allowed;
+}
+
+.coaching-provider-note,
+.remote-consent {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  border: 1px dashed var(--state-uncertain);
+  background: color-mix(in srgb, var(--state-uncertain) 5%, transparent);
+}
+
+.coaching-provider-note p,
+.remote-consent p {
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.remote-consent-check {
+  display: flex;
+  align-items: start;
+  gap: var(--space-xs);
+  min-block-size: 2.75rem;
+  align-items: center;
+  cursor: pointer;
+  font-size: var(--type-caption);
+  color: var(--text-primary);
+}
+
+.remote-consent-blocked {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  color: var(--state-uncertain);
+}
+
+.coaching-result {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.coaching-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+}
+
+.coaching-summary {
+  font-size: var(--type-body);
+  color: var(--text-primary);
+  line-height: 1.65;
+}
+
+.rag-audit {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.rag-audit.is-grounded {
+  border-color: color-mix(in srgb, var(--state-evaluable) 40%, transparent);
+}
+
+.rag-audit.is-unverified {
+  border-color: color-mix(in srgb, var(--state-uncertain) 45%, transparent);
+}
+
+.rag-audit dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  gap: var(--space-xs);
+}
+
+.rag-audit dt {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: var(--text-tertiary);
+}
+
+.rag-audit dd {
+  margin: 0;
+  font-family: var(--font-data);
+  font-size: var(--type-caption);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.rag-hash {
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+}
+
+.coaching-authority-note {
+  padding-block-start: var(--space-xs);
+  border-block-start: 1px solid var(--line-hairline);
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+
+.coaching-repetitions {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.coaching-repetitions article {
+  display: grid;
+  gap: var(--space-2xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-inline-start: 2px solid var(--state-uncertain);
+  background: var(--surface-2);
+}
+
+.coaching-repetitions strong {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-primary);
+}
+
+.coaching-repetitions ul,
+.coaching-general ul {
+  display: grid;
+  gap: var(--space-2xs);
+  padding-inline-start: var(--space-md);
+  list-style: disc;
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.coaching-progression {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--signal-lime);
+}
+
+.coaching-general {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.coaching-sources {
+  display: grid;
+  gap: var(--space-3xs);
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--text-secondary);
+}
+
+.coaching-safety {
+  padding: var(--space-sm);
+  border-inline-start: 2px solid var(--confidence-amber);
+  background: color-mix(in srgb, var(--confidence-amber) 6%, transparent);
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 40rem) {
+  .coaching-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .rail-section-head {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .rail-section-head .source-tag {
+    grid-column: 2;
+  }
+}

@@ -1,0 +1,146 @@
+/* ---------------------------------------------------------------------------
+   Biomech Coach · design tokens
+   Instrumento de laboratorio: 80% monocromo, color solo como señal semántica.
+   Ningún token de color se define únicamente dentro de un media query.
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* --- Materia base ---------------------------------------------------- */
+  --ink: #070909;
+  --paper: #f0ede5;
+  --graphite: #1d201f;
+  --structural: #a8ada8;
+
+  /* --- Señales (estado, nunca decoración) ------------------------------ */
+  --signal-lime: #d8ff3e;
+  --pose-turquoise: #2be3ce;
+  --confidence-amber: #ffb347;
+  --risk-red: #ff4b45;
+  --technical-orange: #ff8b3d;
+
+  /* --- Superficies ------------------------------------------------------ */
+  --surface-0: var(--ink);
+  --surface-1: #0d1010;
+  --surface-2: #141817;
+  --surface-3: var(--graphite);
+  --surface-raised: #232726;
+
+  /* --- Líneas ----------------------------------------------------------- */
+  --line-hairline: #1f2322;
+  --line: #2b302e;
+  --line-strong: #3d4442;
+
+  /* --- Texto ------------------------------------------------------------ */
+  --text-primary: var(--paper);
+  --text-secondary: #c4c8c1;
+  --text-tertiary: var(--structural);
+  --text-on-signal: var(--ink);
+
+  /* --- Roles semánticos -------------------------------------------------
+     Cada rol tiene color + patrón de trazo, para no depender del color.     */
+  --state-evaluable: var(--pose-turquoise);
+  --state-reference: #4ac8ff;
+  --state-uncertain: var(--confidence-amber);
+  --state-technical: var(--technical-orange);
+  --state-risk: var(--risk-red);
+  --state-unavailable: #6f7672;
+  --state-active: var(--signal-lime);
+
+  /* --- Tipografía ------------------------------------------------------- */
+  --font-display: "Segoe UI Variable Display", "SF Pro Display", "Helvetica Neue",
+    Inter, system-ui, -apple-system, sans-serif;
+  --font-ui: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system,
+    "Helvetica Neue", sans-serif;
+  /* DIN para cifras y rótulos de dato: es la tipografía de norma técnica y,
+     a diferencia de una monoespaciada, se lee bien en caja de oración. */
+  --font-data: Bahnschrift, "DIN Alternate", "Avenir Next Condensed", "Roboto Condensed",
+    "Segoe UI", system-ui, sans-serif;
+  --font-code: "Cascadia Mono", "Cascadia Code", Consolas, "SF Mono", ui-monospace, monospace;
+
+  /* Escala tipográfica: paso 1.2 en datos, salto editorial en display */
+  --type-micro: 0.75rem;
+  --type-label: 0.75rem;
+  --type-caption: 0.75rem;
+  --type-body: 0.8125rem;
+  --type-body-lg: 0.9375rem;
+  --type-h4: 1rem;
+  --type-h3: 1.25rem;
+  --type-h2: clamp(1.375rem, 1.1rem + 1.2vw, 2rem);
+  --type-h1: clamp(2rem, 1.2rem + 3.6vw, 3.75rem);
+  --type-display: clamp(2.75rem, 1rem + 8vw, 7.5rem);
+
+  --tracking-display: -0.045em;
+  --tracking-tight: -0.02em;
+  --tracking-label: 0.02em;
+  --leading-display: 0.92;
+  --leading-tight: 1.15;
+  --leading-body: 1.6;
+
+  /* --- Espaciado -------------------------------------------------------- */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4.5rem;
+
+  /* --- Geometría -------------------------------------------------------- */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --border-hairline: 1px;
+
+  /* --- Movimiento -------------------------------------------------------
+     Pesado y controlado. Sin rebote, sin sobretiro, sin resortes.          */
+  --ease-instrument: cubic-bezier(0.2, 0, 0, 1);
+  --ease-mechanical: cubic-bezier(0.32, 0, 0.16, 1);
+  --duration-instant: 90ms;
+  --duration-fast: 160ms;
+  --duration-medium: 280ms;
+  --duration-slow: 460ms;
+
+  /* --- Capas ------------------------------------------------------------ */
+  --z-base: 0;
+  --z-sticky: 10;
+  --z-overlay: 40;
+  --z-popover: 60;
+  --z-dialog: 80;
+  --z-init: 100;
+
+  /* --- Foco ------------------------------------------------------------- */
+  --focus-ring: 2px solid var(--signal-lime);
+  --focus-offset: 2px;
+}
+
+/* Patrones de trama para codificar estado sin depender del color.
+   Se usan como background-image en marcadores y barras.                     */
+:root {
+  --hatch-uncertain: repeating-linear-gradient(
+    45deg,
+    currentColor 0 1px,
+    transparent 1px 4px
+  );
+  --hatch-unavailable: repeating-linear-gradient(
+    90deg,
+    currentColor 0 1px,
+    transparent 1px 5px
+  );
+  --hatch-dense: repeating-linear-gradient(
+    45deg,
+    currentColor 0 2px,
+    transparent 2px 4px
+  );
+}
+
+/* Alto contraste del sistema: reforzamos bordes y quitamos superficies sutiles. */
+@media (forced-colors: active) {
+  :root {
+    --line: CanvasText;
+    --line-strong: CanvasText;
+    --text-tertiary: CanvasText;
+    --text-secondary: CanvasText;
+  }
+}

@@ -1,0 +1,174 @@
+/* ---------------------------------------------------------------------------
+   07 · Estado técnico.
+
+   Dos superficies visualmente distintas para dos cosas distintas: lo que se
+   sondea en vivo (borde sólido) y lo que el backend declara como capacidad
+   construida (borde punteado y trama).
+   --------------------------------------------------------------------------- */
+
+.system-panel {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.system-header h2 {
+  margin-block-start: var(--space-2xs);
+  font-size: var(--type-h1);
+  font-weight: 800;
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+}
+
+.system-block {
+  display: grid;
+  gap: var(--space-md);
+  padding-block-start: var(--space-md);
+  border-block-start: 1px solid var(--line);
+}
+
+.system-block-head {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.system-block-head p {
+  max-inline-size: 62ch;
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --- Disponibilidad en vivo ------------------------------------------------- */
+
+.availability-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--space-sm);
+}
+
+.locality-card {
+  display: grid;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px solid color-mix(in srgb, var(--tone) 40%, transparent);
+  background: color-mix(in srgb, var(--tone) 5%, transparent);
+}
+
+.locality-card p {
+  max-inline-size: 68ch;
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.locality-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  gap: var(--space-sm);
+  padding-block-start: var(--space-sm);
+  border-block-start: 1px solid var(--line-hairline);
+}
+
+.provider-raw-message {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+}
+
+/* --- Capacidad declarada -----------------------------------------------------
+   Trama de fondo: recuerda que es un manifiesto curado, no una lectura viva.  */
+
+.subsystem-groups {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.subsystem-group {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.subsystem-group > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: var(--space-sm);
+}
+
+.subsystem-card {
+  display: grid;
+  gap: var(--space-xs);
+  block-size: 100%;
+  align-content: start;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px dashed color-mix(in srgb, var(--tone) 45%, var(--line));
+  background: var(--surface-1);
+}
+
+.subsystem-card header {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.subsystem-card header strong {
+  font-family: var(--font-display);
+  font-size: var(--type-body-lg);
+  font-weight: 650;
+}
+
+.subsystem-card .state-badge {
+  justify-self: start;
+}
+
+.subsystem-limitation {
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.subsystem-evidence {
+  display: grid;
+  gap: var(--space-3xs);
+}
+
+.subsystem-evidence code {
+  font-size: var(--type-micro);
+}
+
+/* --- Cobertura --------------------------------------------------------------- */
+
+.maturity-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: var(--space-sm);
+  padding-block-start: var(--space-sm);
+  border-block-start: 1px solid var(--line-hairline);
+}
+
+.maturity-legend > div {
+  display: grid;
+  gap: 2px;
+}
+
+.maturity-legend dt code {
+  font-size: var(--type-micro);
+  color: var(--signal-lime);
+}
+
+.maturity-legend dd {
+  margin: 0;
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Nota sobre lo deliberadamente ausente. */
+.system-absent-note {
+  max-inline-size: 68ch;
+  padding: var(--space-sm) var(--space-md);
+  border-inline-start: 2px solid var(--line-strong);
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  line-height: 1.7;
+}

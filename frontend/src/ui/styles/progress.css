@@ -1,0 +1,276 @@
+/* ---------------------------------------------------------------------------
+   06 · Progreso longitudinal.
+
+   Informe, no tablero. El eslogan secundario aparece aquí una sola vez, como
+   apertura editorial contenida, y está separado por una regla de todo lo que
+   es medición.
+   --------------------------------------------------------------------------- */
+
+.progress {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+/* Único lugar de la aplicación donde se usa este eslogan. */
+.progress-slogan {
+  padding-block-end: var(--space-md);
+  border-block-end: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+  color: var(--signal-lime);
+  text-wrap: balance;
+}
+
+.progress-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.progress-header h2 {
+  margin-block-start: var(--space-2xs);
+  font-size: var(--type-h2);
+}
+
+.progress-filter {
+  display: grid;
+  gap: var(--space-2xs);
+  min-inline-size: min(100%, 16rem);
+}
+
+.progress-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  gap: 1px;
+  background: var(--line-hairline);
+  border: 1px solid var(--line-hairline);
+}
+
+.progress-summary .data-pair {
+  padding: var(--space-md);
+  background: var(--surface-1);
+}
+
+.progress-summary .data-pair dd .data-pair-value {
+  font-family: var(--font-display);
+  font-size: var(--type-h2);
+  font-weight: 750;
+}
+
+.progress-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  gap: var(--space-md);
+}
+
+.progress-chart-card {
+  display: grid;
+  gap: var(--space-sm);
+  align-content: start;
+  padding: var(--space-md);
+  border: 1px solid var(--line);
+  background: var(--surface-1);
+  min-inline-size: 0;
+}
+
+.progress-chart-card > header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  padding-block-end: var(--space-xs);
+  border-block-end: 1px solid var(--line-hairline);
+}
+
+.progress-chart-card h3 {
+  margin-block-start: 1px;
+  font-size: var(--type-h4);
+}
+
+.trend-statement {
+  display: grid;
+  justify-items: end;
+  gap: 1px;
+}
+
+.trend-value {
+  font-family: var(--font-data);
+  font-size: var(--type-body-lg);
+  font-variant-numeric: tabular-nums;
+  color: var(--signal-lime);
+}
+
+.trend-unit {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+}
+
+/* --- Gráfica -------------------------------------------------------------------- */
+
+.chart {
+  display: grid;
+  gap: var(--space-xs);
+  margin: 0;
+  --chart-color: var(--state-evaluable);
+}
+
+.chart.tone-reference {
+  --chart-color: var(--state-reference);
+}
+
+.chart svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  overflow: visible;
+}
+
+.chart-grid {
+  stroke: var(--line-hairline);
+  stroke-width: 1;
+}
+
+.chart-axis {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+
+.chart-tick,
+.chart-axis-label,
+.chart-gap-label {
+  fill: var(--text-tertiary);
+  font-family: var(--font-data);
+  font-size: 10px;
+}
+
+.chart-tick {
+  fill: var(--text-secondary);
+}
+
+.chart-line {
+  stroke: var(--chart-color);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.chart-point {
+  fill: var(--chart-color);
+  stroke: var(--surface-0);
+  stroke-width: 1.5;
+}
+
+/* Hueco explícito: medición ausente, jamás un cero implícito. */
+.chart-gap {
+  stroke: var(--state-uncertain);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.chart-gap-label {
+  fill: var(--state-uncertain);
+}
+
+.chart figcaption {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+.chart-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--type-caption);
+}
+
+.chart-table th,
+.chart-table td {
+  padding: var(--space-2xs) var(--space-xs);
+  border-block-end: 1px solid var(--line-hairline);
+  text-align: start;
+}
+
+.chart-table thead th {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+}
+
+.chart-table tbody th {
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* --- Tabla de sesiones ----------------------------------------------------------- */
+
+.progress-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+}
+
+.progress-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--type-caption);
+}
+
+.progress-table th,
+.progress-table td {
+  padding: var(--space-xs) var(--space-sm);
+  border-block-end: 1px solid var(--line-hairline);
+  text-align: start;
+  white-space: nowrap;
+}
+
+.progress-table thead th {
+  position: sticky;
+  inset-block-start: 0;
+  background: var(--surface-2);
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+}
+
+.progress-table tbody th {
+  font-family: var(--font-data);
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+.progress-table tbody tr:last-child td,
+.progress-table tbody tr:last-child th {
+  border-block-end: 0;
+}
+
+/* Ausencia de dato: etiquetada, nunca en blanco ni como cero. */
+.cell-missing {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--state-uncertain);
+}
+
+@media (max-width: 40rem) {
+  .progress-header {
+    align-items: stretch;
+  }
+
+  .progress-filter {
+    min-inline-size: 100%;
+  }
+}

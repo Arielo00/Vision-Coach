@@ -1,0 +1,202 @@
+/* ---------------------------------------------------------------------------
+   Selector de ejercicio (combobox).
+
+   La opción con foco virtual se marca con fondo Y con una barra lateral, para
+   que no dependa solo del color.
+   --------------------------------------------------------------------------- */
+
+.exercise-picker {
+  position: relative;
+  min-inline-size: 0;
+}
+
+.exercise-picker-trigger {
+  display: flex;
+  inline-size: 100%;
+  min-block-size: 2.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-2xs) var(--space-sm);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--text-primary);
+  cursor: pointer;
+  text-align: start;
+}
+
+.exercise-picker-trigger:hover {
+  border-color: var(--line-strong);
+}
+
+/* `minmax(0, 1fr)` es lo que impide que el contenido más largo —la etiqueta de
+   cobertura, que puede ser una frase completa— fije el ancho mínimo del
+   disparador y desborde la columna. */
+.exercise-picker-value {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1px;
+  min-inline-size: 0;
+}
+
+.exercise-picker-value > * {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.exercise-picker-value small {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+}
+
+.exercise-picker-value strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--type-body);
+  font-weight: 600;
+}
+
+.exercise-picker-caret {
+  flex: 0 0 auto;
+  inline-size: 8px;
+  block-size: 8px;
+  border-inline-end: 1.5px solid var(--text-tertiary);
+  border-block-end: 1.5px solid var(--text-tertiary);
+  transform: translateY(-2px) rotate(45deg);
+}
+
+/* Etiqueta de cobertura: viene del backend, nunca de una lista local. */
+.coverage-tag {
+  min-inline-size: 0;
+  overflow: hidden;
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  font-style: normal;
+  letter-spacing: 0.02em;
+  color: var(--tone, var(--text-tertiary));
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* En la lista, la etiqueta no debe empujar al nombre del ejercicio. */
+.exercise-option .coverage-tag {
+  flex: 0 1 auto;
+  max-inline-size: 50%;
+  text-align: end;
+}
+
+.exercise-picker-popover {
+  position: absolute;
+  z-index: var(--z-popover);
+  inset-block-start: calc(100% + 4px);
+  inset-inline-end: 0;
+  inline-size: min(26rem, calc(100vw - 2rem));
+  border: 1px solid var(--line-strong);
+  background: var(--surface-2);
+  box-shadow: 0 18px 48px rgb(0 0 0 / 0.5);
+}
+
+.exercise-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding-inline: var(--space-sm);
+  border-block-end: 1px solid var(--line);
+}
+
+.exercise-search-glyph {
+  flex: 0 0 auto;
+  inline-size: 10px;
+  block-size: 10px;
+  border: 1.5px solid var(--signal-lime);
+  border-radius: 50%;
+}
+
+.exercise-search input {
+  border: 0;
+  background: transparent;
+  min-block-size: 2.75rem;
+  padding-inline: 0;
+}
+
+.exercise-search input:focus-visible {
+  outline: none;
+}
+
+.exercise-search:focus-within {
+  outline: var(--focus-ring);
+  outline-offset: -2px;
+}
+
+.exercise-options {
+  max-block-size: 22rem;
+  overflow-y: auto;
+  padding: var(--space-2xs);
+}
+
+.exercise-options [role="group"] + [role="group"] {
+  margin-block-start: var(--space-xs);
+  padding-block-start: var(--space-xs);
+  border-block-start: 1px solid var(--line-hairline);
+}
+
+.exercise-options h4 {
+  padding: var(--space-2xs) var(--space-xs);
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--signal-lime);
+}
+
+.exercise-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  min-block-size: 2.5rem;
+  padding: var(--space-2xs) var(--space-xs);
+  border-inline-start: 2px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: var(--type-caption);
+}
+
+.exercise-option.is-active {
+  border-inline-start-color: var(--signal-lime);
+  background: var(--surface-3);
+  color: var(--text-primary);
+}
+
+.exercise-option.is-selected .exercise-option-label {
+  color: var(--signal-lime);
+  font-weight: 600;
+}
+
+.exercise-option-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.exercise-no-results {
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: var(--type-caption);
+}
+
+.exercise-coverage-note {
+  padding: var(--space-xs) var(--space-sm);
+  border-block-start: 1px solid var(--line-hairline);
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}

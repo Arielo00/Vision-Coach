@@ -1,0 +1,239 @@
+/* ---------------------------------------------------------------------------
+   Estructura: cabecera, navegación, contenedor principal, pie e inicialización.
+   --------------------------------------------------------------------------- */
+
+.app-header,
+.app-nav,
+main,
+.app-footer {
+  --shell-inline: clamp(1rem, 4vw, 4rem);
+  padding-inline: var(--shell-inline);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  min-block-size: 4rem;
+  padding-block: var(--space-xs);
+  border-block-end: 1px solid var(--line);
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-inline-size: 0;
+}
+
+/* Icono GONIO: G de nodos lima con fondo transparente. */
+.app-mark {
+  display: block;
+  inline-size: 36px;
+  block-size: 36px;
+  flex: 0 0 auto;
+}
+
+.app-brand-text {
+  display: grid;
+}
+
+.app-brand-text strong {
+  font-family: var(--font-display);
+  font-size: var(--type-caption);
+  font-weight: 750;
+  letter-spacing: 0.02em;
+}
+
+.app-brand-text small {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  color: var(--text-tertiary);
+  max-inline-size: 52ch;
+  text-wrap: pretty;
+}
+
+.app-backend {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-secondary);
+}
+
+.app-backend-dot {
+  inline-size: 7px;
+  block-size: 7px;
+  border-radius: 50%;
+  background: var(--tone, var(--text-tertiary));
+}
+
+/* --- Navegación -------------------------------------------------------------
+   La sección activa se marca con lima, subrayado y `aria-current`: nunca solo
+   con color.                                                                  */
+
+.app-nav {
+  border-block-end: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.app-nav ul {
+  display: flex;
+  gap: 0;
+}
+
+.app-nav button {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  border: 0;
+  border-block-end: 2px solid transparent;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--ease-instrument),
+    border-color var(--duration-fast) var(--ease-instrument);
+}
+
+.app-nav button:hover {
+  color: var(--text-primary);
+}
+
+.app-nav button.is-active {
+  color: var(--text-primary);
+  border-block-end-color: var(--signal-lime);
+}
+
+.nav-index {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  color: var(--text-tertiary);
+}
+
+.app-nav button.is-active .nav-index {
+  color: var(--signal-lime);
+}
+
+.nav-label {
+  font-family: var(--font-display);
+  font-size: var(--type-body-lg);
+  font-weight: 650;
+  letter-spacing: var(--tracking-tight);
+}
+
+/* --- Principal --------------------------------------------------------------- */
+
+main {
+  display: block;
+  padding-block: var(--space-xl) var(--space-2xl);
+}
+
+/* `:not([hidden])` es obligatorio: `display: grid` de autor gana al
+   `display: none` que el agente de usuario aplica por el atributo `hidden`, y
+   sin esta guarda las cuatro vistas se apilan a la vez. */
+main > div:not([hidden]) {
+  display: grid;
+  gap: var(--space-2xl);
+}
+
+/* --- Pie y aviso ------------------------------------------------------------- */
+
+.app-footer {
+  padding-block: var(--space-xl) var(--space-2xl);
+  border-block-start: 1px solid var(--line);
+}
+
+.safety-notice {
+  display: grid;
+  gap: var(--space-xs);
+  max-inline-size: 62ch;
+  padding-inline-start: var(--space-md);
+  border-inline-start: 2px solid var(--confidence-amber);
+}
+
+.safety-notice .tech-label {
+  color: var(--confidence-amber);
+}
+
+.safety-notice p {
+  color: var(--text-secondary);
+  font-size: var(--type-caption);
+  line-height: 1.7;
+}
+
+/* --- 00 · Secuencia de inicialización ----------------------------------------
+   No se monta bajo `prefers-reduced-motion`; el bloque de respaldo aquí es por
+   si la preferencia cambia a mitad de la animación.                            */
+
+.init-sequence {
+  position: fixed;
+  z-index: var(--z-init);
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--surface-0);
+}
+
+.init-sequence-inner {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-xs);
+  inline-size: min(30rem, 80vw);
+  text-align: center;
+}
+
+.init-wordmark {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 750;
+  letter-spacing: 0.02em;
+}
+
+.init-status,
+.init-modules {
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+}
+
+/* La línea de calibración: se convierte visualmente en el borde de la zona de
+   carga cuando la superposición se retira. */
+.init-line {
+  inline-size: 100%;
+  block-size: 1px;
+  margin-block: var(--space-xs);
+  background: var(--signal-lime);
+  transform-origin: left center;
+}
+
+.init-skip {
+  position: absolute;
+  inset-block-end: var(--space-xl);
+  padding: var(--space-2xs) var(--space-sm);
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-tertiary);
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .init-sequence {
+    display: none;
+  }
+}

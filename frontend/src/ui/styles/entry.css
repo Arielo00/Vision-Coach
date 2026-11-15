@@ -1,0 +1,595 @@
+/* ---------------------------------------------------------------------------
+   01 · Entrada de análisis.
+
+   Composición asimétrica de instrumento: bloque editorial a la izquierda,
+   consola operativa a la derecha. No es un encabezado centrado sobre un botón:
+   la zona de carga es visible y utilizable desde el primer momento.
+   --------------------------------------------------------------------------- */
+
+.entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(min(100%, 22rem), 0.95fr);
+  gap: clamp(var(--space-lg), 4vw, var(--space-2xl));
+  align-items: start;
+  container-type: inline-size;
+}
+
+/* --- Bloque editorial ------------------------------------------------------- */
+
+.entry-editorial {
+  display: grid;
+  gap: var(--space-md);
+  align-content: start;
+}
+
+.entry-title {
+  display: grid;
+  font-size: var(--type-display);
+  font-weight: 800;
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  /* Recorte intencional: el segundo renglón entra desde el margen. */
+  margin-inline-start: -0.06em;
+}
+
+.entry-title span:last-child {
+  color: var(--text-tertiary);
+}
+
+.entry-slogan {
+  font-family: var(--font-display);
+  font-size: clamp(0.9375rem, 0.6rem + 1.1vw, 1.375rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--signal-lime);
+  padding-block-start: var(--space-xs);
+  border-block-start: 1px solid var(--line);
+}
+
+.entry-copy {
+  max-inline-size: 46ch;
+  color: var(--text-secondary);
+  font-size: var(--type-body-lg);
+  line-height: 1.65;
+}
+
+/* Metadatos: solo se pintan con estado real; el componente decide el texto. */
+.entry-metadata {
+  display: grid;
+  gap: 0;
+  margin-block-start: var(--space-xs);
+  border-block-start: 1px solid var(--line);
+}
+
+.entry-metadata li {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: var(--space-sm);
+  padding-block: var(--space-xs);
+  border-block-end: 1px solid var(--line-hairline);
+}
+
+.entry-metadata-key {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+}
+
+.entry-metadata-value {
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+
+/* --- Consola ---------------------------------------------------------------- */
+
+.entry-console {
+  display: grid;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border: 1px solid var(--line);
+  background: var(--surface-1);
+}
+
+.console-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  padding-block-end: var(--space-xs);
+  border-block-end: 1px solid var(--line);
+}
+
+/* Zona de carga: el borde superior es la línea de calibración heredada de 00. */
+.drop-zone {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-block-size: 14rem;
+  padding: var(--space-lg);
+  border: 1px dashed var(--line-strong);
+  border-block-start: 1px solid var(--signal-lime);
+  background: var(--surface-2);
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-instrument),
+    background-color var(--duration-fast) var(--ease-instrument);
+}
+
+.drop-zone:hover,
+.drop-zone.is-dragging {
+  border-color: var(--signal-lime);
+  background: color-mix(in srgb, var(--signal-lime) 5%, var(--surface-2));
+}
+
+.drop-zone:focus-within {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.drop-zone.has-file {
+  border-style: solid;
+  padding: 0;
+  background: var(--ink);
+}
+
+.drop-zone input[type="file"] {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.drop-zone video {
+  display: block;
+  inline-size: 100%;
+  max-block-size: 20rem;
+  background: var(--ink);
+}
+
+.drop-copy {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2xs);
+  text-align: center;
+}
+
+.drop-line {
+  inline-size: 3rem;
+  block-size: 1px;
+  margin-block-end: var(--space-xs);
+  background: var(--signal-lime);
+}
+
+.drop-copy strong {
+  font-family: var(--font-display);
+  font-size: var(--type-h4);
+  font-weight: 650;
+}
+
+.drop-copy small {
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  color: var(--text-tertiary);
+}
+
+.file-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding-block: var(--space-xs);
+  border-block-end: 1px solid var(--line-hairline);
+}
+
+.file-summary div {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.file-summary strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--type-caption);
+}
+
+.file-summary span {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+}
+
+.file-summary button {
+  border: 0;
+  background: transparent;
+  color: var(--signal-lime);
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.console-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: var(--space-sm);
+}
+
+.console-field {
+  display: grid;
+  gap: var(--space-2xs);
+  align-content: start;
+  min-inline-size: 0;
+}
+
+.console-field small {
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+.upload-progress {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.upload-progress div {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  color: var(--text-secondary);
+}
+
+.console-submit {
+  min-block-size: 3rem;
+  border: 0;
+  background: var(--signal-lime);
+  color: var(--text-on-signal);
+  font-family: var(--font-display);
+  font-size: var(--type-body);
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-instrument);
+}
+
+.console-submit:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--signal-lime) 85%, white);
+}
+
+.console-submit:disabled {
+  background: var(--surface-3);
+  color: var(--text-tertiary);
+  cursor: not-allowed;
+}
+
+.console-privacy {
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+
+/* --- Trabajos locales -------------------------------------------------------- */
+
+.jobs {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.jobs-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding-block-end: var(--space-xs);
+  border-block-end: 1px solid var(--line);
+}
+
+.job-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  gap: var(--space-sm);
+}
+
+.job-card {
+  display: grid;
+  gap: var(--space-sm);
+  block-size: 100%;
+  padding: var(--space-md);
+  border: 1px solid var(--line);
+  border-inline-start: 2px solid var(--tone, var(--text-tertiary));
+  background: var(--surface-1);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 16rem;
+}
+
+.job-card.status-completed { --tone: var(--state-active); }
+.job-card.status-processing { --tone: var(--state-uncertain); }
+.job-card.status-failed { --tone: var(--state-risk); }
+.job-card.status-queued { --tone: var(--state-unavailable); }
+
+.job-card header {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.job-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--tone, var(--text-tertiary));
+}
+
+.job-status-dot {
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.job-card h3 {
+  font-size: var(--type-body-lg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.job-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  gap: var(--space-xs);
+}
+
+/* --- Pipeline de procesamiento ------------------------------------------------
+   Medido: 200 s para un clip de 9 s, dominado por la carga del modelo y la
+   inferencia. No es un parpadeo, así que se muestra desplegado.               */
+
+.pipeline {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.pipeline-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.pipeline-elapsed {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2xs);
+}
+
+.pipeline-elapsed-value {
+  font-family: var(--font-data);
+  font-size: var(--type-body);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.pipeline-elapsed-label {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+}
+
+.pipeline-steps {
+  display: grid;
+  gap: 1px;
+}
+
+.pipeline-step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-xs);
+  padding-block: 3px;
+  font-size: var(--type-caption);
+  color: var(--text-tertiary);
+}
+
+/* El marcador codifica el estado por forma además de por color. */
+.pipeline-step-mark {
+  inline-size: 9px;
+  block-size: 9px;
+  border: 1px solid currentColor;
+}
+
+.pipeline-step.is-done {
+  color: var(--state-evaluable);
+}
+
+.pipeline-step.is-done .pipeline-step-mark {
+  background: currentColor;
+}
+
+.pipeline-step.is-running {
+  color: var(--signal-lime);
+}
+
+.pipeline-step.is-running .pipeline-step-mark {
+  background: var(--hatch-dense);
+}
+
+.pipeline-step.is-pending .pipeline-step-mark {
+  border-style: dashed;
+  opacity: 0.6;
+}
+
+.pipeline-step.is-failed {
+  color: var(--state-risk);
+}
+
+.pipeline-step.is-failed .pipeline-step-mark {
+  background: currentColor;
+}
+
+.pipeline-step-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pipeline-step.is-running .pipeline-step-label,
+.pipeline-step.is-failed .pipeline-step-label {
+  color: var(--text-primary);
+}
+
+.pipeline-step-state {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.pipeline-step-hint {
+  color: var(--text-tertiary);
+}
+
+.pipeline-unknown,
+.pipeline-estimate {
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  line-height: 1.55;
+}
+
+/* Mensaje principal de la espera: el trabajo no depende de esta pestaña. */
+.pipeline-detach {
+  padding: var(--space-2xs) var(--space-xs);
+  border-inline-start: 2px solid var(--state-evaluable);
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.pipeline-estimate strong {
+  font-family: var(--font-data);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.pipeline-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.pipeline-bar-value {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+}
+
+.job-error {
+  padding: var(--space-xs);
+  border-inline-start: 2px solid var(--risk-red);
+  color: var(--risk-red);
+  font-size: var(--type-caption);
+}
+
+.job-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.job-primary,
+.job-secondary {
+  min-block-size: 2.5rem;
+  padding-inline: var(--space-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.job-primary {
+  background: var(--signal-lime);
+  color: var(--text-on-signal);
+}
+
+.job-secondary {
+  border-color: var(--line-strong);
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.job-secondary:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+/* Objetivo táctil completo: el enlace ocupa la misma altura que los botones
+   vecinos en lugar de quedarse en la altura del texto. */
+.job-link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.5rem;
+  padding-inline: var(--space-xs);
+  margin-inline-start: auto;
+  color: var(--text-tertiary);
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.job-link:hover {
+  color: var(--signal-lime);
+}
+
+.job-card time {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  padding-block-start: var(--space-xs);
+  border-block-start: 1px solid var(--line-hairline);
+}
+
+/* --- Adaptación --------------------------------------------------------------
+   La consola pasa arriba en pantallas angostas: cargar el video es la acción
+   principal y no debe quedar bajo un bloque editorial largo.                   */
+
+@container (max-width: 60rem) {
+  .entry {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 60rem) {
+  .entry {
+    grid-template-columns: 1fr;
+  }
+
+  .entry-console {
+    order: -1;
+  }
+
+  .entry-metadata li {
+    grid-template-columns: 7rem minmax(0, 1fr);
+  }
+}

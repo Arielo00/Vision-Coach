@@ -1,0 +1,817 @@
+/* ---------------------------------------------------------------------------
+   02 · Banco de análisis y 03 · línea de tiempo.
+
+   El video manda: ocupa aproximadamente dos tercios del ancho disponible y el
+   riel de diagnóstico el tercio restante.
+   --------------------------------------------------------------------------- */
+
+.workbench {
+  display: grid;
+  gap: var(--space-md);
+  padding-block-start: var(--space-lg);
+  border-block-start: 1px solid var(--line);
+  container-type: inline-size;
+}
+
+.workbench-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.workbench-identity {
+  display: grid;
+  gap: var(--space-2xs);
+  min-inline-size: 0;
+}
+
+.workbench-identity h2 {
+  font-size: var(--type-h2);
+  overflow-wrap: anywhere;
+}
+
+.workbench-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-block-start: var(--space-2xs);
+}
+
+.workbench-meta > div {
+  display: grid;
+  gap: 1px;
+}
+
+.workbench-meta dt {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+}
+
+.workbench-meta dd {
+  margin: 0;
+  font-size: var(--type-caption);
+  color: var(--text-primary);
+}
+
+.workbench-close {
+  min-block-size: 2.5rem;
+  padding-inline: var(--space-sm);
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.workbench-loading {
+  display: grid;
+  place-items: center;
+  min-block-size: 8rem;
+  color: var(--text-tertiary);
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.workbench-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(min(100%, 21rem), 1fr);
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.workbench-stage {
+  display: grid;
+  gap: var(--space-md);
+  min-inline-size: 0;
+}
+
+.workbench-rail {
+  display: grid;
+  gap: var(--space-md);
+  min-inline-size: 0;
+}
+
+.workbench-rail > * {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+/* --- Carcasa de video --------------------------------------------------------
+
+   El límite de altura se aplica al ANCHO, derivado de la relación de aspecto
+   real del video. Así la caja del elemento siempre coincide con el área
+   pintada y el esqueleto no puede desalinearse por bandas de `object-fit`.     */
+
+.video-canvas-shell {
+  position: relative;
+  inline-size: 100%;
+  border: 1px solid var(--line);
+  background: var(--ink);
+  overflow: hidden;
+}
+
+.video-canvas-shell.has-geometry {
+  --viewport-cap: 66dvh;
+  max-inline-size: calc(var(--viewport-cap) * (var(--job-aspect)));
+  margin-inline: auto;
+}
+
+.video-canvas-shell video {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  background: var(--ink);
+}
+
+.video-canvas-shell.has-geometry video {
+  aspect-ratio: var(--job-aspect);
+}
+
+.video-canvas-shell canvas {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  pointer-events: none;
+}
+
+.pose-absent-badge {
+  position: absolute;
+  inset-block-start: var(--space-xs);
+  inset-inline-start: var(--space-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-2xs) var(--space-xs);
+  border: 1px solid var(--confidence-amber);
+  background: var(--ink);
+  color: var(--text-primary);
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+}
+
+.pose-absent-badge span {
+  inline-size: 8px;
+  block-size: 8px;
+  color: var(--confidence-amber);
+  background: var(--hatch-dense);
+}
+
+/* --- Controles del escenario --------------------------------------------------- */
+
+.stage-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.stage-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-block-size: 2.75rem;
+  cursor: pointer;
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+}
+
+.stage-toggle:has(input:disabled) {
+  color: var(--text-tertiary);
+  cursor: not-allowed;
+}
+
+.stage-toggle:has(input:checked) {
+  color: var(--text-primary);
+}
+
+.stage-note {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-inline-start: 2px solid var(--state-reference);
+  background: color-mix(in srgb, var(--state-reference) 7%, transparent);
+  font-size: var(--type-caption);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.stage-note strong {
+  color: var(--text-primary);
+}
+
+/* La comparación no tiene contra qué medir. */
+.stage-note.is-unavailable {
+  border-inline-start-color: var(--state-unavailable);
+  background: var(--surface-2);
+}
+
+.stage-note.is-unavailable strong {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  color: var(--text-tertiary);
+}
+
+/* Vista de referencia sin confirmar. */
+.reference-caveat {
+  padding: var(--space-2xs) var(--space-xs);
+  border-inline-start: 2px solid var(--state-uncertain);
+  background: color-mix(in srgb, var(--state-uncertain) 8%, transparent);
+}
+
+.reference-caveat strong {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  color: var(--state-uncertain);
+}
+
+/* Qué significa cada trazo, y qué NO significa. */
+.reference-legend,
+.reference-limits {
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+
+.reference-limits {
+  padding-block-start: var(--space-xs);
+  border-block-start: 1px solid var(--line-hairline);
+}
+
+/* --- 03 · Línea de tiempo ------------------------------------------------------ */
+
+.timeline {
+  display: grid;
+  gap: var(--space-sm);
+  padding-block-start: var(--space-sm);
+  border-block-start: 1px solid var(--line);
+}
+
+.timeline-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.timeline-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-secondary);
+}
+
+.timeline-legend li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.legend-swatch {
+  inline-size: 14px;
+  block-size: 6px;
+}
+
+.legend-swatch.state-correcta { background: var(--state-evaluable); }
+.legend-swatch.state-revisar { background: var(--state-technical); }
+.legend-swatch.state-no_evaluable {
+  color: var(--state-uncertain);
+  background: var(--hatch-dense);
+  border: 1px dashed currentColor;
+}
+
+.timeline-frame {
+  position: relative;
+  block-size: 3.25rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.timeline-track {
+  position: relative;
+  block-size: 3.25rem;
+  min-inline-size: 100%;
+}
+
+.timeline-baseline {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 1.5rem;
+  block-size: 1px;
+  background: var(--line-strong);
+}
+
+/* Segmento de repetición: color + patrón + marcador textual. */
+.timeline-rep {
+  position: absolute;
+  inset-block: 0.5rem 0.75rem;
+  display: grid;
+  align-content: center;
+  padding: 0;
+  border: 1px solid var(--tone);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--tone) 14%, transparent);
+  cursor: pointer;
+  overflow: visible;
+  transition: background-color var(--duration-fast) var(--ease-instrument);
+}
+
+.timeline-rep.state-correcta { --tone: var(--state-evaluable); }
+.timeline-rep.state-revisar { --tone: var(--state-technical); }
+.timeline-rep.state-no_evaluable {
+  --tone: var(--state-uncertain);
+  border-style: dashed;
+  background: transparent;
+}
+
+.timeline-rep.state-no_evaluable .timeline-rep-fill {
+  position: absolute;
+  inset: 0;
+  color: var(--tone);
+  background: var(--hatch-uncertain);
+  opacity: 0.55;
+}
+
+.timeline-rep:hover,
+.timeline-rep.is-selected {
+  background: color-mix(in srgb, var(--tone) 30%, transparent);
+}
+
+.timeline-rep.is-selected {
+  box-shadow: inset 0 0 0 1px var(--tone);
+}
+
+.timeline-rep-number {
+  position: absolute;
+  inset-block-start: -0.55rem;
+  inset-inline-start: 2px;
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+}
+
+.timeline-rep-marker {
+  position: absolute;
+  inset-block-end: -0.85rem;
+  inset-inline-start: 2px;
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  color: var(--tone);
+}
+
+/* Marca de fase: solo existe si el motor reportó la fase. */
+.timeline-phase {
+  position: absolute;
+  inset-block: 0;
+  inline-size: 1px;
+  background: var(--text-primary);
+  opacity: 0.55;
+}
+
+.timeline-phase.is-derived {
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--text-primary) 0 2px,
+    transparent 2px 4px
+  );
+}
+
+.timeline-finding {
+  position: absolute;
+  inset-block-start: -0.25rem;
+  inline-size: 5px;
+  block-size: 5px;
+  transform: translateX(-50%) rotate(45deg);
+  background: var(--tone);
+}
+
+.timeline-contact {
+  position: absolute;
+  inset-block-end: 0.1rem;
+  inline-size: 7px;
+  block-size: 7px;
+  transform: translateX(-50%);
+  border: 1px solid var(--state-reference);
+  border-radius: 50%;
+}
+
+.timeline-playhead {
+  position: absolute;
+  inset-block: 0.25rem 0.5rem;
+  inline-size: 2px;
+  background: var(--signal-lime);
+  pointer-events: none;
+}
+
+/* --- Índice textual de repeticiones ------------------------------------------- */
+
+.timeline-index {
+  display: grid;
+  gap: 1px;
+}
+
+.timeline-index-item {
+  display: grid;
+  grid-template-columns: 2.5rem 8.5rem 3.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-sm);
+  inline-size: 100%;
+  min-block-size: 2.75rem;
+  padding: var(--space-2xs) var(--space-xs);
+  border: 0;
+  border-inline-start: 2px solid var(--tone);
+  background: var(--surface-1);
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-align: start;
+  font-size: var(--type-caption);
+}
+
+.timeline-index-item.state-correcta { --tone: var(--state-evaluable); }
+.timeline-index-item.state-revisar { --tone: var(--state-technical); }
+.timeline-index-item.state-no_evaluable {
+  --tone: var(--state-uncertain);
+  border-inline-start-style: dashed;
+}
+
+.timeline-index-item:hover,
+.timeline-index-item.is-selected {
+  background: var(--surface-2);
+  color: var(--text-primary);
+}
+
+.timeline-index-number {
+  font-family: var(--font-data);
+  font-size: var(--type-body-lg);
+  color: var(--text-tertiary);
+}
+
+.timeline-index-item.is-selected .timeline-index-number {
+  color: var(--signal-lime);
+}
+
+.timeline-index-state {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  color: var(--tone);
+}
+
+.timeline-index-confidence {
+  font-family: var(--font-data);
+  font-size: var(--type-caption);
+}
+
+.timeline-index-phases {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+}
+
+.timeline-index-findings {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--state-technical);
+  white-space: nowrap;
+}
+
+/* --- Lecturas en vivo ----------------------------------------------------------- */
+
+.live-readouts {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px solid var(--line);
+  background: var(--surface-1);
+}
+
+.live-readouts-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.live-confidence {
+  display: grid;
+  gap: 1px;
+}
+
+.live-confidence-value {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.4rem + 1.6vw, 2.75rem);
+  font-weight: 750;
+  line-height: 1;
+  color: var(--tone, var(--text-primary));
+}
+
+.live-confidence-level {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+}
+
+.live-detection {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.live-detection > div {
+  display: grid;
+  gap: 1px;
+}
+
+.live-detection dt {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-tertiary);
+}
+
+.live-detection dd {
+  margin: 0;
+  font-family: var(--font-data);
+  font-size: var(--type-body);
+  color: var(--text-primary);
+}
+
+.live-detection-total,
+.live-detection-unit {
+  color: var(--text-tertiary);
+  font-size: var(--type-micro);
+}
+
+.live-note,
+.live-legend {
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+
+.live-legend {
+  padding-block-start: var(--space-xs);
+  border-block-start: 1px solid var(--line-hairline);
+}
+
+.angle-readouts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(5.5rem, 1fr));
+  gap: 1px;
+  background: var(--line-hairline);
+  border: 1px solid var(--line-hairline);
+}
+
+.angle-readouts > div {
+  display: grid;
+  gap: 1px;
+  padding: var(--space-xs);
+  background: var(--surface-2);
+}
+
+.angle-readouts span {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+}
+
+.angle-readouts strong {
+  font-family: var(--font-data);
+  font-size: var(--type-h4);
+  font-variant-numeric: tabular-nums;
+}
+
+.angle-readouts .is-unmeasured strong {
+  color: var(--text-tertiary);
+}
+
+.angle-readouts small {
+  font-family: var(--font-data);
+  font-size: 0.5625rem;
+  letter-spacing: 0.02em;
+  color: var(--state-uncertain);
+}
+
+/* --- Panel plegable de confianza por articulación -----------------------------
+   Plegado por omisión: el detalle de 12 articulaciones compite con la lectura
+   principal. La preferencia se recuerda entre sesiones.                        */
+
+.joint-panel {
+  border-block-start: 1px solid var(--line-hairline);
+}
+
+.joint-panel > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-block-size: 2.75rem;
+  cursor: pointer;
+  list-style: none;
+  color: var(--text-secondary);
+}
+
+.joint-panel > summary::-webkit-details-marker {
+  display: none;
+}
+
+.joint-panel > summary:hover {
+  color: var(--text-primary);
+}
+
+.joint-panel > summary:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: -2px;
+}
+
+.joint-panel[open] > summary .disclosure-marker {
+  transform: rotate(135deg);
+}
+
+.joint-panel-title {
+  flex: 1 1 auto;
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: none;
+}
+
+.joint-panel-count {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-tertiary);
+}
+
+.joint-panel-body {
+  display: grid;
+  gap: var(--space-sm);
+  padding-block-end: var(--space-xs);
+}
+
+.joint-readouts-list {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.joint-occluded {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-2xs) var(--space-xs);
+  padding: var(--space-xs);
+  border: 1px dashed var(--state-uncertain);
+}
+
+.joint-occluded-mark {
+  grid-row: span 2;
+  inline-size: 3px;
+  color: var(--state-uncertain);
+  background: var(--hatch-uncertain);
+}
+
+.joint-occluded strong {
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  letter-spacing: 0.02em;
+  color: var(--state-uncertain);
+}
+
+.joint-occluded span {
+  font-size: var(--type-micro);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* --- Repetición en curso -------------------------------------------------------- */
+
+.current-rep-summary {
+  display: grid;
+  gap: var(--space-2xs);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--line);
+  background: var(--surface-1);
+}
+
+.current-rep-summary > div {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.current-rep-summary strong {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+}
+
+/* --- Marcado de caso difícil ----------------------------------------------------- */
+
+.hard-example {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(10rem, auto) auto;
+  align-items: end;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--line);
+  background: var(--surface-1);
+}
+
+.hard-example-copy p {
+  font-size: var(--type-micro);
+  color: var(--text-tertiary);
+}
+
+.hard-example-type select {
+  min-block-size: 2.5rem;
+  font-size: var(--type-caption);
+}
+
+.hard-example > button {
+  min-block-size: 2.5rem;
+  padding-inline: var(--space-sm);
+  border: 1px solid var(--confidence-amber);
+  background: transparent;
+  color: var(--confidence-amber);
+  cursor: pointer;
+  font-family: var(--font-data);
+  font-size: var(--type-label);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.hard-example > button:disabled {
+  border-color: var(--line);
+  color: var(--text-tertiary);
+  cursor: not-allowed;
+}
+
+.hard-example-message {
+  grid-column: 1 / -1;
+  font-family: var(--font-data);
+  font-size: var(--type-micro);
+  color: var(--signal-lime);
+}
+
+/* --- Adaptación ------------------------------------------------------------------
+   El video se mantiene primero y los controles crecen para uso táctil.          */
+
+@container (max-width: 68rem) {
+  .workbench-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 68rem) {
+  .workbench-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .video-canvas-shell.has-geometry {
+    --viewport-cap: 52dvh;
+  }
+
+  .timeline-index-item {
+    grid-template-columns: 2.25rem minmax(0, 1fr) 3rem;
+    row-gap: 2px;
+  }
+
+  .timeline-index-phases,
+  .timeline-index-findings {
+    grid-column: 2 / -1;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 40rem) {
+  .hard-example {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .workbench-meta {
+    gap: var(--space-sm);
+  }
+}
